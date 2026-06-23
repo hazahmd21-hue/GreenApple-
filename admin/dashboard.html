@@ -1,203 +1,252 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة التحكم | جرين ابل - Admin Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/style.css">
-  <script>
-    (function() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      if (savedTheme === 'light') {
-        document.documentElement.classList.add('light-mode');
-      } else {
-        document.documentElement.classList.remove('light-mode');
-      }
-      const savedLang = localStorage.getItem('lang') || 'ar';
-      document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = savedLang;
-    })();
-  </script>
-</head>
-<body class="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لوحة التحكم | جرين ابل - Admin Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        if (savedTheme === "light") {
+          document.documentElement.classList.add("light-mode");
+        } else {
+          document.documentElement.classList.remove("light-mode");
+        }
+        const savedLang = localStorage.getItem("lang") || "ar";
+        document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
+        document.documentElement.lang = savedLang;
+      })();
+    </script>
+  </head>
 
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="apple-spinner"></div>
-    <div class="loading-logo">Green Apple</div>
-  </div>
+  <body class="rtl">
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="apple-spinner"></div>
+      <div class="loading-logo"></div>
+    </div>
 
-  <div class="admin-layout">
-    
-    <!-- Admin Sidebar Navigation -->
-    <aside class="admin-sidebar glass-nav">
-      <div class="admin-logo">
-        <i class="fa-brands fa-apple"></i>
-        <span class="lang-ar">جرين ابل</span>
-        <span class="lang-en">Green Apple</span>
-      </div>
-      <ul class="admin-nav">
-        <li>
-          <a href="dashboard.html" class="admin-nav-link active">
-            <i class="fa-solid fa-chart-pie"></i>
-            <span class="lang-ar">لوحة الإحصائيات</span>
-            <span class="lang-en">Statistics</span>
-          </a>
-        </li>
-        <li>
-          <a href="categories.html" class="admin-nav-link">
-            <i class="fa-solid fa-list"></i>
-            <span class="lang-ar">إدارة الأقسام</span>
-            <span class="lang-en">Categories</span>
-          </a>
-        </li>
-        <li>
-          <a href="products.html" class="admin-nav-link">
-            <i class="fa-solid fa-mobile-screen-button"></i>
-            <span class="lang-ar">إدارة المنتجات</span>
-            <span class="lang-en">Products</span>
-          </a>
-        </li>
-        <li>
-          <a href="offers.html" class="admin-nav-link">
-            <i class="fa-solid fa-tags"></i>
-            <span class="lang-ar">إدارة العروض</span>
-            <span class="lang-en">Offers</span>
-          </a>
-        </li>
-        <li>
-          <a href="videos.html" class="admin-nav-link">
-            <i class="fa-solid fa-video"></i>
-            <span class="lang-ar">إدارة الفيديوهات</span>
-            <span class="lang-en">Videos</span>
-          </a>
-        </li>
-        <li style="margin-top: auto;">
-          <a href="#" class="admin-nav-link admin-logout" id="admin-logout-btn">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span class="lang-ar">تسجيل الخروج</span>
-            <span class="lang-en">Logout</span>
-          </a>
-        </li>
-      </ul>
-    </aside>
+    <div class="admin-layout">
+      <!-- Admin Sidebar Navigation -->
+      <aside class="admin-sidebar glass-nav">
+        <div class="admin-logo">
+          <i class="fa-brands fa-apple"></i>
+        </div>
+        <ul class="admin-nav">
+          <li>
+            <a href="dashboard.html" class="admin-nav-link active">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span class="lang-ar">لوحة الإحصائيات</span>
+              <span class="lang-en">Statistics</span>
+            </a>
+          </li>
+          <li>
+            <a href="categories.html" class="admin-nav-link">
+              <i class="fa-solid fa-list"></i>
+              <span class="lang-ar">إدارة الأقسام</span>
+              <span class="lang-en">Categories</span>
+            </a>
+          </li>
+          <li>
+            <a href="products.html" class="admin-nav-link">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              <span class="lang-ar">إدارة المنتجات</span>
+              <span class="lang-en">Products</span>
+            </a>
+          </li>
+          <li>
+            <a href="offers.html" class="admin-nav-link">
+              <i class="fa-solid fa-tags"></i>
+              <span class="lang-ar">إدارة العروض</span>
+              <span class="lang-en">Offers</span>
+            </a>
+          </li>
+          <li>
+            <a href="videos.html" class="admin-nav-link">
+              <i class="fa-solid fa-video"></i>
+              <span class="lang-ar">إدارة الفيديوهات</span>
+              <span class="lang-en">Videos</span>
+            </a>
+          </li>
+          <li style="margin-top: auto">
+            <a
+              href="#"
+              class="admin-nav-link admin-logout"
+              id="admin-logout-btn"
+            >
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span class="lang-ar">تسجيل الخروج</span>
+              <span class="lang-en">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
 
-    <!-- Main Content Area -->
-    <main class="admin-main">
-      
-      <!-- Top header -->
-      <header class="admin-header">
-        <div>
-          <h1 style="font-size: 2rem; font-weight: 800;">
-            <span class="lang-ar">لوحة الإحصائيات العامة</span>
-            <span class="lang-en">Overview Statistics</span>
-          </h1>
-          <p class="admin-title-desc">
-            <span class="lang-ar">مرحباً بك مجدداً في لوحة التحكم، إليك نظرة سريعة على أرقام متجرك:</span>
-            <span class="lang-en">Welcome back! Here is a summary of your store's database counts:</span>
+      <!-- Main Content Area -->
+      <main class="admin-main">
+        <!-- Top header -->
+        <header class="admin-header">
+          <div>
+            <h1 style="font-size: 2rem; font-weight: 800">
+              <span class="lang-ar">لوحة الإحصائيات العامة</span>
+              <span class="lang-en">Overview Statistics</span>
+            </h1>
+            <p class="admin-title-desc">
+              <span class="lang-ar"
+                >مرحباً بك مجدداً في لوحة التحكم، إليك نظرة سريعة على أرقام
+                متجرك:</span
+              >
+              <span class="lang-en"
+                >Welcome back! Here is a summary of your store's database
+                counts:</span
+              >
+            </p>
+          </div>
+
+          <!-- Controls switcher -->
+          <div style="display: flex; gap: 12px">
+            <button class="action-btn" id="lang-toggle-btn">
+              <i class="fa-solid fa-globe"></i>
+            </button>
+            <button class="action-btn" id="theme-toggle-btn">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- Stats Grid -->
+
+        <section class="admin-stats-grid">
+          <!-- Stat Card 1: Categories -->
+          <div class="admin-stat-card glass">
+            <div>
+              <div class="admin-stat-number" id="stat-categories">0</div>
+              <div class="admin-stat-title">
+                <span class="lang-ar">إجمالي الأقسام</span>
+                <span class="lang-en">Total Categories</span>
+              </div>
+            </div>
+            <div class="admin-stat-icon"><i class="fa-solid fa-list"></i></div>
+          </div>
+
+          <!-- Stat Card 2: Products -->
+          <div class="admin-stat-card glass">
+            <div>
+              <div class="admin-stat-number" id="stat-products">0</div>
+              <div class="admin-stat-title">
+                <span class="lang-ar">إجمالي المنتجات</span>
+                <span class="lang-en">Total Products</span>
+              </div>
+            </div>
+            <div class="admin-stat-icon">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+          </div>
+
+          <!-- Stat Card 3: Offers -->
+          <div class="admin-stat-card glass">
+            <div>
+              <div class="admin-stat-number" id="stat-offers">0</div>
+              <div class="admin-stat-title">
+                <span class="lang-ar">العروض النشطة</span>
+                <span class="lang-en">Active Offers</span>
+              </div>
+            </div>
+            <div class="admin-stat-icon"><i class="fa-solid fa-tags"></i></div>
+          </div>
+
+          <!-- Stat Card 4: Videos -->
+          <div class="admin-stat-card glass">
+            <div>
+              <div class="admin-stat-number" id="stat-videos">0</div>
+              <div class="admin-stat-title">
+                <span class="lang-ar">الفيديوهات الترويجية</span>
+                <span class="lang-en">Videos Loaded</span>
+              </div>
+            </div>
+            <div class="admin-stat-icon"><i class="fa-solid fa-video"></i></div>
+          </div>
+
+          <!-- Stat Card 5: Views -->
+          <div class="admin-stat-card glass">
+            <div>
+              <div class="admin-stat-number" id="stat-views">0</div>
+              <div class="admin-stat-title">
+                <span class="lang-ar">إجمالي زيارات الموقع</span>
+                <span class="lang-en">Total Site Views</span>
+              </div>
+            </div>
+            <div class="admin-stat-icon"><i class="fa-solid fa-eye"></i></div>
+          </div>
+        </section>
+
+        <!-- Welcome visual screen or quick links -->
+        <section
+          class="glass"
+          style="
+            padding: 40px;
+            text-align: center;
+            border-color: rgba(22, 163, 74, 0.15);
+            box-shadow: 0 0 30px var(--glow-color);
+          "
+        >
+          <i
+            class="fa-brands fa-apple"
+            style="font-size: 4rem; color: var(--primary); margin-bottom: 20px"
+          ></i>
+          <h3 style="font-size: 1.8rem; margin-bottom: 12px">
+            <span class="lang-ar">لوحة تحكم إدارة المتجر الإلكتروني</span>
+            <span class="lang-en">E-Commerce Management Console</span>
+          </h3>
+          <p
+            style="
+              color: var(--text-muted);
+              max-width: 600px;
+              margin: 0 auto 30px auto;
+              line-height: 1.8;
+            "
+          >
+            <span class="lang-ar"
+              >يمكنك الآن إضافة وتعديل وحذف التصنيفات، تحديث قائمة المعروضات من
+              أجهزة الآيفون مع تحديد أسعار الخصم، تحديث البنرات الإعلانية
+              الترويجية وعدادات التوقيت، ورفع فيديوهات المراجعة لتظهر تلقائياً
+              للزوار فور الحفظ.</span
+            >
+            <span class="lang-en"
+              >Use the navigation menu to update product stocks, manage details
+              in both Arabic and English, modify banner discounts with custom
+              countdown clocks, upload MP4 loops or external video cards.</span
+            >
           </p>
-        </div>
-        
-        <!-- Controls switcher -->
-        <div style="display: flex; gap: 12px;">
-          <button class="action-btn" id="lang-toggle-btn"><i class="fa-solid fa-globe"></i></button>
-          <button class="action-btn" id="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
-        </div>
-      </header>
-
-      <!-- Stats Grid -->
-      <section class="admin-stats-grid">
-        <!-- Stat Card 1: Categories -->
-        <div class="admin-stat-card glass">
-          <div>
-            <div class="admin-stat-number" id="stat-categories">0</div>
-            <div class="admin-stat-title">
-              <span class="lang-ar">إجمالي الأقسام</span>
-              <span class="lang-en">Total Categories</span>
-            </div>
+          <div
+            style="
+              display: flex;
+              gap: 15px;
+              justify-content: center;
+              flex-wrap: wrap;
+            "
+          >
+            <a href="products.html" class="btn-primary">
+              <i class="fa-solid fa-plus"></i>
+              <span class="lang-ar">إضافة منتج جديد</span>
+              <span class="lang-en">Add New Product</span>
+            </a>
+            <a href="/" target="_blank" class="btn-secondary">
+              <i class="fa-solid fa-up-right-from-square"></i>
+              <span class="lang-ar">زيارة الموقع العام</span>
+              <span class="lang-en">Open Public Store</span>
+            </a>
           </div>
-          <div class="admin-stat-icon"><i class="fa-solid fa-list"></i></div>
-        </div>
+        </section>
+      </main>
+    </div>
 
-        <!-- Stat Card 2: Products -->
-        <div class="admin-stat-card glass">
-          <div>
-            <div class="admin-stat-number" id="stat-products">0</div>
-            <div class="admin-stat-title">
-              <span class="lang-ar">إجمالي المنتجات</span>
-              <span class="lang-en">Total Products</span>
-            </div>
-          </div>
-          <div class="admin-stat-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
-        </div>
-
-        <!-- Stat Card 3: Offers -->
-        <div class="admin-stat-card glass">
-          <div>
-            <div class="admin-stat-number" id="stat-offers">0</div>
-            <div class="admin-stat-title">
-              <span class="lang-ar">العروض النشطة</span>
-              <span class="lang-en">Active Offers</span>
-            </div>
-          </div>
-          <div class="admin-stat-icon"><i class="fa-solid fa-tags"></i></div>
-        </div>
-
-        <!-- Stat Card 4: Videos -->
-        <div class="admin-stat-card glass">
-          <div>
-            <div class="admin-stat-number" id="stat-videos">0</div>
-            <div class="admin-stat-title">
-              <span class="lang-ar">الفيديوهات الترويجية</span>
-              <span class="lang-en">Videos Loaded</span>
-            </div>
-          </div>
-          <div class="admin-stat-icon"><i class="fa-solid fa-video"></i></div>
-        </div>
-
-        <!-- Stat Card 5: Views -->
-        <div class="admin-stat-card glass">
-          <div>
-            <div class="admin-stat-number" id="stat-views">0</div>
-            <div class="admin-stat-title">
-              <span class="lang-ar">إجمالي زيارات الموقع</span>
-              <span class="lang-en">Total Site Views</span>
-            </div>
-          </div>
-          <div class="admin-stat-icon"><i class="fa-solid fa-eye"></i></div>
-        </div>
-      </section>
-
-      <!-- Welcome visual screen or quick links -->
-      <section class="glass" style="padding: 40px; text-align: center; border-color: rgba(22, 163, 74, 0.15); box-shadow: 0 0 30px var(--glow-color);">
-        <i class="fa-brands fa-apple" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
-        <h3 style="font-size: 1.8rem; margin-bottom: 12px;">
-          <span class="lang-ar">لوحة تحكم إدارة المتجر الإلكتروني</span>
-          <span class="lang-en">E-Commerce Management Console</span>
-        </h3>
-        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 30px auto; line-height: 1.8;">
-          <span class="lang-ar">يمكنك الآن إضافة وتعديل وحذف التصنيفات، تحديث قائمة المعروضات من أجهزة الآيفون مع تحديد أسعار الخصم، تحديث البنرات الإعلانية الترويجية وعدادات التوقيت، ورفع فيديوهات المراجعة لتظهر تلقائياً للزوار فور الحفظ.</span>
-          <span class="lang-en">Use the navigation menu to update product stocks, manage details in both Arabic and English, modify banner discounts with custom countdown clocks, upload MP4 loops or external video cards.</span>
-        </p>
-        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-          <a href="products.html" class="btn-primary">
-            <i class="fa-solid fa-plus"></i>
-            <span class="lang-ar">إضافة منتج جديد</span>
-            <span class="lang-en">Add New Product</span>
-          </a>
-          <a href="/" target="_blank" class="btn-secondary">
-            <i class="fa-solid fa-up-right-from-square"></i>
-            <span class="lang-ar">زيارة الموقع العام</span>
-            <span class="lang-en">Open Public Store</span>
-          </a>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <script src="../js/script.js"></script>
-  <script src="../js/admin.js"></script>
-</body>
+    <script src="../js/script.js"></script>
+    <script src="../js/admin.js"></script>
+  </body>
 </html>

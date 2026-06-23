@@ -1588,7 +1588,34 @@ body.rtl .lightbox-next {
   font-weight: 600;
   color: var(--text-muted);
   transition: var(--transition-smooth);
+  flex-wrap: wrap;
 }
+
+/* Ensure dual-language stacked text has spacing */
+.lang-ar + .lang-en,
+.lang-en + .lang-ar {
+  margin-inline-start: 10px;
+}
+
+/* Admin spacing between header and main content */
+/* (removed 150px rules; spacing is controlled by main.admin-main below) */
+
+/* Ensure the requested spacing is always applied on admin pages */
+main.admin-main {
+  padding-top: 115px;
+}
+
+
+/* When both languages are in same line, add separation */
+.admin-header h1 .lang-ar,
+.admin-header h1 .lang-en,
+.admin-stat-title .lang-ar,
+.admin-stat-title .lang-en,
+.admin-sidebar .lang-ar,
+.admin-sidebar .lang-en {
+  white-space: normal;
+}
+
 .admin-nav-link:hover,
 .admin-nav-link.active {
   background: rgba(22, 163, 74, 0.1);

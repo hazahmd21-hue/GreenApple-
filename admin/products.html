@@ -1,316 +1,454 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>إدارة المنتجات | لوحة التحكم - Green Apple</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../css/style.css">
-  <script>
-    (function() {
-      const savedTheme = localStorage.getItem('theme') || 'dark';
-      if (savedTheme === 'light') {
-        document.documentElement.classList.add('light-mode');
-      } else {
-        document.documentElement.classList.remove('light-mode');
-      }
-      const savedLang = localStorage.getItem('lang') || 'ar';
-      document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = savedLang;
-    })();
-  </script>
-</head>
-<body class="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>إدارة المنتجات | لوحة التحكم - Green Apple</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        if (savedTheme === "light") {
+          document.documentElement.classList.add("light-mode");
+        } else {
+          document.documentElement.classList.remove("light-mode");
+        }
+        const savedLang = localStorage.getItem("lang") || "ar";
+        document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
+        document.documentElement.lang = savedLang;
+      })();
+    </script>
+  </head>
+  <body class="rtl">
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="apple-spinner"></div>
+      <div class="loading-logo"></div>
+    </div>
 
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="apple-spinner"></div>
-    <div class="loading-logo">Green Apple</div>
-  </div>
-
-  <div class="admin-layout">
-    
-    <!-- Sidebar Navigation -->
-    <aside class="admin-sidebar glass-nav">
-      <div class="admin-logo">
-        <i class="fa-brands fa-apple"></i>
-        <span class="lang-ar">جرين ابل</span>
-        <span class="lang-en">Green Apple</span>
-      </div>
-      <ul class="admin-nav">
-        <li>
-          <a href="dashboard.html" class="admin-nav-link">
-            <i class="fa-solid fa-chart-pie"></i>
-            <span class="lang-ar">لوحة الإحصائيات</span>
-            <span class="lang-en">Statistics</span>
-          </a>
-        </li>
-        <li>
-          <a href="categories.html" class="admin-nav-link">
-            <i class="fa-solid fa-list"></i>
-            <span class="lang-ar">إدارة الأقسام</span>
-            <span class="lang-en">Categories</span>
-          </a>
-        </li>
-        <li>
-          <a href="products.html" class="admin-nav-link active">
-            <i class="fa-solid fa-mobile-screen-button"></i>
-            <span class="lang-ar">إدارة المنتجات</span>
-            <span class="lang-en">Products</span>
-          </a>
-        </li>
-        <li>
-          <a href="offers.html" class="admin-nav-link">
-            <i class="fa-solid fa-tags"></i>
-            <span class="lang-ar">إدارة العروض</span>
-            <span class="lang-en">Offers</span>
-          </a>
-        </li>
-        <li>
-          <a href="videos.html" class="admin-nav-link">
-            <i class="fa-solid fa-video"></i>
-            <span class="lang-ar">إدارة الفيديوهات</span>
-            <span class="lang-en">Videos</span>
-          </a>
-        </li>
-        <li style="margin-top: auto;">
-          <a href="#" class="admin-nav-link admin-logout" id="admin-logout-btn">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span class="lang-ar">تسجيل الخروج</span>
-            <span class="lang-en">Logout</span>
-          </a>
-        </li>
-      </ul>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="admin-main">
-      
-      <!-- Top header -->
-      <header class="admin-header">
-        <div>
-          <h1 style="font-size: 2rem; font-weight: 800;">
-            <span class="lang-ar">إدارة المنتجات والأجهزة</span>
-            <span class="lang-en">Products Management</span>
-          </h1>
-          <p class="admin-title-desc">
-            <span class="lang-ar">أضف هواتف آيفون جديدة، إكسسوارات، عدل الأسعار والخصومات، وحدث حالة التوفر في المعرض</span>
-            <span class="lang-en">Create new product entries, set before/after prices, SKUs, and upload photos</span>
-          </p>
+    <div class="admin-layout">
+      <!-- Sidebar Navigation -->
+      <aside class="admin-sidebar glass-nav">
+        <div class="admin-logo">
+          <i class="fa-brands fa-apple"></i>
         </div>
-        <div style="display: flex; gap: 12px;">
-          <button class="action-btn" id="lang-toggle-btn"><i class="fa-solid fa-globe"></i></button>
-          <button class="action-btn" id="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
-        </div>
-      </header>
+        <ul class="admin-nav">
+          <li>
+            <a href="dashboard.html" class="admin-nav-link">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span class="lang-ar">لوحة الإحصائيات</span>
+              <span class="lang-en">Statistics</span>
+            </a>
+          </li>
+          <li>
+            <a href="categories.html" class="admin-nav-link">
+              <i class="fa-solid fa-list"></i>
+              <span class="lang-ar">إدارة الأقسام</span>
+              <span class="lang-en">Categories</span>
+            </a>
+          </li>
+          <li>
+            <a href="products.html" class="admin-nav-link active">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              <span class="lang-ar">إدارة المنتجات</span>
+              <span class="lang-en">Products</span>
+            </a>
+          </li>
+          <li>
+            <a href="offers.html" class="admin-nav-link">
+              <i class="fa-solid fa-tags"></i>
+              <span class="lang-ar">إدارة العروض</span>
+              <span class="lang-en">Offers</span>
+            </a>
+          </li>
+          <li>
+            <a href="videos.html" class="admin-nav-link">
+              <i class="fa-solid fa-video"></i>
+              <span class="lang-ar">إدارة الفيديوهات</span>
+              <span class="lang-en">Videos</span>
+            </a>
+          </li>
+          <li style="margin-top: auto">
+            <a
+              href="#"
+              class="admin-nav-link admin-logout"
+              id="admin-logout-btn"
+            >
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span class="lang-ar">تسجيل الخروج</span>
+              <span class="lang-en">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
 
-      <!-- Products table card -->
-      <section class="glass" style="padding: 24px;">
-        <div class="admin-card-header">
-          <h3 style="font-size: 1.25rem; font-weight: 700;">
-            <span class="lang-ar">قائمة المنتجات المضافة</span>
-            <span class="lang-en">Active Products Catalog</span>
-          </h3>
-          <button class="btn-primary" id="open-prod-modal-btn" style="padding: 10px 20px; font-size: 0.9rem;">
-            <i class="fa-solid fa-plus"></i>
-            <span class="lang-ar">إضافة منتج جديد</span>
-            <span class="lang-en">Add New Product</span>
-          </button>
-        </div>
-
-        <!-- Products Table -->
-        <div class="admin-table-container">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th><span class="lang-ar">الصورة</span><span class="lang-en">Image</span></th>
-                <th><span class="lang-ar">الرمز / الكود</span><span class="lang-en">Code</span></th>
-                <th><span class="lang-ar">اسم المنتج</span><span class="lang-en">Product Title</span></th>
-                <th><span class="lang-ar">السعر الحالي</span><span class="lang-en">Price</span></th>
-                <th><span class="lang-ar">القسم</span><span class="lang-en">Category</span></th>
-                <th><span class="lang-ar">حالة التوفر</span><span class="lang-en">Stock Status</span></th>
-                <th><span class="lang-ar">مميز</span><span class="lang-en">Featured</span></th>
-                <th><span class="lang-ar">الخيارات</span><span class="lang-en">Actions</span></th>
-              </tr>
-            </thead>
-            <tbody id="products-table-body">
-              <!-- Loaded dynamically via admin.js -->
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <!-- Form Modal (Add / Edit Product) -->
-  <div class="admin-modal" id="prod-modal">
-    <div class="admin-modal-content glass" style="max-width: 750px;">
-      <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;" id="prod-modal-title">
-        <span class="lang-ar">إضافة منتج جديد</span>
-        <span class="lang-en">Add New Product</span>
-      </h3>
-      
-      <form id="prod-form">
-        <input type="hidden" id="prod-id">
-
-        <!-- Tab 1: Arabic Titles -->
-        <div class="admin-form-row">
-          <div class="admin-form-group">
-            <label for="prod-name-ar">
-              <span class="lang-ar">اسم المنتج (بالعربية) *</span>
-              <span class="lang-en">Product Name (Arabic) *</span>
-            </label>
-            <input type="text" id="prod-name-ar" class="admin-form-input" required placeholder="مثال: آيفون 15 برو 256 جيجا">
+      <!-- Main Content Area -->
+      <main class="admin-main">
+        <!-- Top header -->
+        <header class="admin-header">
+          <div>
+            <h1 style="font-size: 2rem; font-weight: 800">
+              <span class="lang-ar">إدارة المنتجات والأجهزة</span>
+              <span class="lang-en">Products Management</span>
+            </h1>
+            <p class="admin-title-desc">
+              <span class="lang-ar"
+                >أضف هواتف آيفون جديدة، إكسسوارات، عدل الأسعار والخصومات، وحدث
+                حالة التوفر في المعرض</span
+              >
+              <span class="lang-en"
+                >Create new product entries, set before/after prices, SKUs, and
+                upload photos</span
+              >
+            </p>
           </div>
-          <div class="admin-form-group">
-            <label for="prod-name-en">
-              <span class="lang-ar">اسم المنتج (بالإنجليزية) *</span>
-              <span class="lang-en">Product Name (English) *</span>
-            </label>
-            <input type="text" id="prod-name-en" class="admin-form-input" required placeholder="e.g. iPhone 15 Pro 256GB">
-          </div>
-        </div>
-
-        <!-- Description texts -->
-        <div class="admin-form-row">
-          <div class="admin-form-group">
-            <label for="prod-desc-ar">
-              <span class="lang-ar">الوصف (بالعربية)</span>
-              <span class="lang-en">Description (Arabic)</span>
-            </label>
-            <textarea id="prod-desc-ar" class="admin-form-textarea" rows="3" placeholder="مواصفات الهاتف، الكاميرا، حالة البطارية..."></textarea>
-          </div>
-          <div class="admin-form-group">
-            <label for="prod-desc-en">
-              <span class="lang-ar">الوصف (بالإنجليزية)</span>
-              <span class="lang-en">Description (English)</span>
-            </label>
-            <textarea id="prod-desc-en" class="admin-form-textarea" rows="3" placeholder="Battery status, memory, camera lenses specs..."></textarea>
-          </div>
-        </div>
-
-        <!-- Pricing details -->
-        <div class="admin-form-row">
-          <div class="admin-form-group">
-            <label for="prod-price-before">
-              <span class="lang-ar">السعر قبل الخصم ($)</span>
-              <span class="lang-en">Price Before Discount ($)</span>
-            </label>
-            <input type="number" id="prod-price-before" class="admin-form-input" step="0.01" placeholder="e.g. 1399">
-          </div>
-          <div class="admin-form-group">
-            <label for="prod-price-after">
-              <span class="lang-ar">السعر بعد الخصم ($) *</span>
-              <span class="lang-en">Price After Discount ($) *</span>
-            </label>
-            <input type="number" id="prod-price-after" class="admin-form-input" step="0.01" required placeholder="e.g. 1199">
-          </div>
-        </div>
-
-        <!-- Category & Stock status -->
-        <div class="admin-form-row">
-          <div class="admin-form-group">
-            <label for="prod-category">
-              <span class="lang-ar">القسم المربوط *</span>
-              <span class="lang-en">Category *</span>
-            </label>
-            <select id="prod-category" class="admin-form-select" required>
-              <!-- Loaded dynamically from categories list -->
-            </select>
-          </div>
-          <div class="admin-form-group">
-            <label for="prod-availability">
-              <span class="lang-ar">حالة التوفر</span>
-              <span class="lang-en">Availability</span>
-            </label>
-            <select id="prod-availability" class="admin-form-select">
-              <option value="in-stock">متوفر (In Stock)</option>
-              <option value="out-of-stock">نفذت الكمية (Out of Stock)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Codes & tags -->
-        <div class="admin-form-row">
-          <div class="admin-form-group">
-            <label for="prod-sku">
-              <span class="lang-ar">رمز التخزين SKU</span>
-              <span class="lang-en">SKU Code</span>
-            </label>
-            <input type="text" id="prod-sku" class="admin-form-input" placeholder="e.g. IPH15P-256-BLK">
-          </div>
-          <div class="admin-form-group">
-            <label for="prod-code">
-              <span class="lang-ar">كود المنتج الفريد</span>
-              <span class="lang-en">Product Code</span>
-            </label>
-            <input type="text" id="prod-code" class="admin-form-input" placeholder="e.g. GA-102">
-          </div>
-        </div>
-
-        <div class="admin-form-group">
-          <label for="prod-tags">
-            <span class="lang-ar">كلمات مفتاحية / تاجات (مفصولة بفواصل)</span>
-            <span class="lang-en">Search Tags (comma-separated)</span>
-          </label>
-          <input type="text" id="prod-tags" class="admin-form-input" placeholder="e.g. iPhone, Apple, 15 Pro">
-        </div>
-
-        <!-- Images section -->
-        <div class="admin-form-group">
-          <label>
-            <span class="lang-ar">صور المنتج</span>
-            <span class="lang-en">Product Images</span>
-          </label>
-          <div class="admin-form-row" style="margin-bottom: 12px;">
-            <input type="text" id="prod-image-url" class="admin-form-input" placeholder="أدخل رابط صورة مباشر (URL)...">
-            <button type="button" class="btn-secondary" id="add-url-img-btn" style="padding: 12px; height: 46px;">
-              <span class="lang-ar">إضافة الرابط</span>
-              <span class="lang-en">Add URL</span>
+          <div style="display: flex; gap: 12px">
+            <button class="action-btn" id="lang-toggle-btn" type="button">
+              <i class="fa-solid fa-globe"></i>
+            </button>
+            <button class="action-btn" id="theme-toggle-btn" type="button">
+              <i class="fa-solid fa-moon"></i>
             </button>
           </div>
-          
-          <!-- Drag and drop area -->
-          <div class="drag-drop-area" id="drag-drop-area">
-            <i class="fa-solid fa-cloud-arrow-up"></i>
-            <h4 class="lang-ar">اسحب وأفلت صور المنتج هنا</h4>
-            <h4 class="lang-en">Drag & Drop images here</h4>
-            <p style="color:var(--text-muted); font-size:0.8rem; margin:6px 0;">أو انقر للتصفح من جهازك (PNG, JPG, WEBP)</p>
-            <input type="file" id="prod-file-input" multiple accept="image/*" style="display: none;">
+        </header>
+
+        <!-- Products table card -->
+
+        <section class="glass" style="padding: 24px">
+          <div class="admin-card-header">
+            <h3 style="font-size: 1.25rem; font-weight: 700">
+              <span class="lang-ar">قائمة المنتجات المضافة</span>
+              <span class="lang-en">Active Products Catalog</span>
+            </h3>
+            <button
+              class="btn-primary"
+              id="open-prod-modal-btn"
+              style="padding: 10px 20px; font-size: 0.9rem"
+            >
+              <i class="fa-solid fa-plus"></i>
+              <span class="lang-ar">إضافة منتج جديد</span>
+              <span class="lang-en">Add New Product</span>
+            </button>
           </div>
 
-          <!-- Previews -->
-          <div class="image-previews-container" id="image-previews">
-            <!-- Loaded dynamically when file uploads or URL adds -->
+          <!-- Products Table -->
+          <div class="admin-table-container">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>
+                    <span class="lang-ar">الصورة</span
+                    ><span class="lang-en">Image</span>
+                  </th>
+                  <th>
+                    <span class="lang-ar">الرمز / الكود</span
+                    ><span class="lang-en">Code</span>
+                  </th>
+                  <th>
+                    <span class="lang-ar">اسم المنتج</span
+                    ><span class="lang-en">Product Title</span>
+                  </th>
+                  <th>
+                    <span class="lang-ar">السعر الحالي</span
+                    ><span class="lang-en">Price</span>
+                  </th>
+                  <th>
+                    <span class="lang-ar">القسم</span
+                    ><span class="lang-en">Category</span>
+                  </th>
+                  <th>
+                    <span class="lang-ar">حالة التوفر</span
+                    ><span class="lang-en">Stock Status</span>
+                  </th>
+                  <th>
+                    <span class="lang-ar">مميز</span
+                    ><span class="lang-en">Featured</span>
+                  </th>
+                  <th>
+                    <span class="lang-ar">الخيارات</span
+                    ><span class="lang-en">Actions</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="products-table-body">
+                <!-- Loaded dynamically via admin.js -->
+              </tbody>
+            </table>
           </div>
-        </div>
-
-        <!-- Options toggle -->
-        <div class="admin-checkbox-group">
-          <input type="checkbox" id="prod-featured">
-          <label for="prod-featured" style="cursor: pointer; user-select: none;">
-            <span class="lang-ar">عرض المنتج كمنتج مميز في الصفحة الرئيسية</span>
-            <span class="lang-en">Feature this product on the home page</span>
-          </label>
-        </div>
-
-        <!-- Submit buttons -->
-        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 30px;">
-          <button type="button" class="btn-secondary" id="close-prod-modal-btn" style="padding: 10px 20px;">
-            <span class="lang-ar">إلغاء</span>
-            <span class="lang-en">Cancel</span>
-          </button>
-          <button type="submit" class="btn-primary" style="padding: 10px 20px;">
-            <span class="lang-ar">حفظ المنتج</span>
-            <span class="lang-en">Save Product</span>
-          </button>
-        </div>
-      </form>
+        </section>
+      </main>
     </div>
-  </div>
 
-  <script src="../js/script.js"></script>
-  <script src="../js/admin.js"></script>
-</body>
+    <!-- Form Modal (Add / Edit Product) -->
+    <div class="admin-modal" id="prod-modal">
+      <div class="admin-modal-content glass" style="max-width: 750px">
+        <h3
+          style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px"
+          id="prod-modal-title"
+        >
+          <span class="lang-ar">إضافة منتج جديد</span>
+          <span class="lang-en">Add New Product</span>
+        </h3>
+
+        <form id="prod-form">
+          <input type="hidden" id="prod-id" />
+
+          <!-- Tab 1: Arabic Titles -->
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label for="prod-name-ar">
+                <span class="lang-ar">اسم المنتج (بالعربية) *</span>
+                <span class="lang-en">Product Name (Arabic) *</span>
+              </label>
+              <input
+                type="text"
+                id="prod-name-ar"
+                class="admin-form-input"
+                required
+                placeholder="مثال: آيفون 15 برو 256 جيجا"
+              />
+            </div>
+            <div class="admin-form-group">
+              <label for="prod-name-en">
+                <span class="lang-ar">اسم المنتج (بالإنجليزية) *</span>
+                <span class="lang-en">Product Name (English) *</span>
+              </label>
+              <input
+                type="text"
+                id="prod-name-en"
+                class="admin-form-input"
+                required
+                placeholder="e.g. iPhone 15 Pro 256GB"
+              />
+            </div>
+          </div>
+
+          <!-- Description texts -->
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label for="prod-desc-ar">
+                <span class="lang-ar">الوصف (بالعربية)</span>
+                <span class="lang-en">Description (Arabic)</span>
+              </label>
+              <textarea
+                id="prod-desc-ar"
+                class="admin-form-textarea"
+                rows="3"
+                placeholder="مواصفات الهاتف، الكاميرا، حالة البطارية..."
+              ></textarea>
+            </div>
+            <div class="admin-form-group">
+              <label for="prod-desc-en">
+                <span class="lang-ar">الوصف (بالإنجليزية)</span>
+                <span class="lang-en">Description (English)</span>
+              </label>
+              <textarea
+                id="prod-desc-en"
+                class="admin-form-textarea"
+                rows="3"
+                placeholder="Battery status, memory, camera lenses specs..."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Pricing details -->
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label for="prod-price-before">
+                <span class="lang-ar">السعر قبل الخصم ($)</span>
+                <span class="lang-en">Price Before Discount ($)</span>
+              </label>
+              <input
+                type="number"
+                id="prod-price-before"
+                class="admin-form-input"
+                step="0.01"
+                placeholder="e.g. 1399"
+              />
+            </div>
+            <div class="admin-form-group">
+              <label for="prod-price-after">
+                <span class="lang-ar">السعر بعد الخصم ($) *</span>
+                <span class="lang-en">Price After Discount ($) *</span>
+              </label>
+              <input
+                type="number"
+                id="prod-price-after"
+                class="admin-form-input"
+                step="0.01"
+                required
+                placeholder="e.g. 1199"
+              />
+            </div>
+          </div>
+
+          <!-- Category & Stock status -->
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label for="prod-category">
+                <span class="lang-ar">القسم المربوط *</span>
+                <span class="lang-en">Category *</span>
+              </label>
+              <select id="prod-category" class="admin-form-select" required>
+                <!-- Loaded dynamically from categories list -->
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label for="prod-availability">
+                <span class="lang-ar">حالة التوفر</span>
+                <span class="lang-en">Availability</span>
+              </label>
+              <select id="prod-availability" class="admin-form-select">
+                <option value="in-stock">متوفر (In Stock)</option>
+                <option value="out-of-stock">نفذت الكمية (Out of Stock)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Codes & tags -->
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label for="prod-sku">
+                <span class="lang-ar">رمز التخزين SKU</span>
+                <span class="lang-en">SKU Code</span>
+              </label>
+              <input
+                type="text"
+                id="prod-sku"
+                class="admin-form-input"
+                placeholder="e.g. IPH15P-256-BLK"
+              />
+            </div>
+            <div class="admin-form-group">
+              <label for="prod-code">
+                <span class="lang-ar">كود المنتج الفريد</span>
+                <span class="lang-en">Product Code</span>
+              </label>
+              <input
+                type="text"
+                id="prod-code"
+                class="admin-form-input"
+                placeholder="e.g. GA-102"
+              />
+            </div>
+          </div>
+
+          <div class="admin-form-group">
+            <label for="prod-tags">
+              <span class="lang-ar">كلمات مفتاحية / تاجات (مفصولة بفواصل)</span>
+              <span class="lang-en">Search Tags (comma-separated)</span>
+            </label>
+            <input
+              type="text"
+              id="prod-tags"
+              class="admin-form-input"
+              placeholder="e.g. iPhone, Apple, 15 Pro"
+            />
+          </div>
+
+          <!-- Images section -->
+          <div class="admin-form-group">
+            <label>
+              <span class="lang-ar">صور المنتج</span>
+              <span class="lang-en">Product Images</span>
+            </label>
+            <div class="admin-form-row" style="margin-bottom: 12px">
+              <input
+                type="text"
+                id="prod-image-url"
+                class="admin-form-input"
+                placeholder="أدخل رابط صورة مباشر (URL)..."
+              />
+              <button
+                type="button"
+                class="btn-secondary"
+                id="add-url-img-btn"
+                style="padding: 12px; height: 46px"
+              >
+                <span class="lang-ar">إضافة الرابط</span>
+                <span class="lang-en">Add URL</span>
+              </button>
+            </div>
+
+            <!-- Drag and drop area -->
+            <div class="drag-drop-area" id="drag-drop-area">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <h4 class="lang-ar">اسحب وأفلت صور المنتج هنا</h4>
+              <h4 class="lang-en">Drag & Drop images here</h4>
+              <p
+                style="
+                  color: var(--text-muted);
+                  font-size: 0.8rem;
+                  margin: 6px 0;
+                "
+              >
+                أو انقر للتصفح من جهازك (PNG, JPG, WEBP)
+              </p>
+              <input
+                type="file"
+                id="prod-file-input"
+                multiple
+                accept="image/*"
+                style="display: none"
+              />
+            </div>
+
+            <!-- Previews -->
+            <div class="image-previews-container" id="image-previews">
+              <!-- Loaded dynamically when file uploads or URL adds -->
+            </div>
+          </div>
+
+          <!-- Options toggle -->
+          <div class="admin-checkbox-group">
+            <input type="checkbox" id="prod-featured" />
+            <label
+              for="prod-featured"
+              style="cursor: pointer; user-select: none"
+            >
+              <span class="lang-ar"
+                >عرض المنتج كمنتج مميز في الصفحة الرئيسية</span
+              >
+              <span class="lang-en">Feature this product on the home page</span>
+            </label>
+          </div>
+
+          <!-- Submit buttons -->
+          <div
+            style="
+              display: flex;
+              gap: 12px;
+              justify-content: flex-end;
+              margin-top: 30px;
+            "
+          >
+            <button
+              type="button"
+              class="btn-secondary"
+              id="close-prod-modal-btn"
+              style="padding: 10px 20px"
+            >
+              <span class="lang-ar">إلغاء</span>
+              <span class="lang-en">Cancel</span>
+            </button>
+            <button
+              type="submit"
+              class="btn-primary"
+              style="padding: 10px 20px"
+            >
+              <span class="lang-ar">حفظ المنتج</span>
+              <span class="lang-en">Save Product</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/admin.js"></script>
+  </body>
 </html>
