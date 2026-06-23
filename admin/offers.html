@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إدارة العروض والخصومات | لوحة التحكم - Green Apple</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light-mode');
+      } else {
+        document.documentElement.classList.remove('light-mode');
+      }
+      const savedLang = localStorage.getItem('lang') || 'ar';
+      document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = savedLang;
+    })();
+  </script>
+</head>
+<body class="rtl">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="apple-spinner"></div>
+    <div class="loading-logo">Green Apple</div>
+  </div>
+
+  <div class="admin-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar glass-nav">
+      <div class="admin-logo">
+        <i class="fa-brands fa-apple"></i>
+        <span class="lang-ar">جرين ابل</span>
+        <span class="lang-en">Green Apple</span>
+      </div>
+      <ul class="admin-nav">
+        <li>
+          <a href="dashboard.html" class="admin-nav-link">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="lang-ar">لوحة الإحصائيات</span>
+            <span class="lang-en">Statistics</span>
+          </a>
+        </li>
+        <li>
+          <a href="categories.html" class="admin-nav-link">
+            <i class="fa-solid fa-list"></i>
+            <span class="lang-ar">إدارة الأقسام</span>
+            <span class="lang-en">Categories</span>
+          </a>
+        </li>
+        <li>
+          <a href="products.html" class="admin-nav-link">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <span class="lang-ar">إدارة المنتجات</span>
+            <span class="lang-en">Products</span>
+          </a>
+        </li>
+        <li>
+          <a href="offers.html" class="admin-nav-link active">
+            <i class="fa-solid fa-tags"></i>
+            <span class="lang-ar">إدارة العروض</span>
+            <span class="lang-en">Offers</span>
+          </a>
+        </li>
+        <li>
+          <a href="videos.html" class="admin-nav-link">
+            <i class="fa-solid fa-video"></i>
+            <span class="lang-ar">إدارة الفيديوهات</span>
+            <span class="lang-en">Videos</span>
+          </a>
+        </li>
+        <li style="margin-top: auto;">
+          <a href="#" class="admin-nav-link admin-logout" id="admin-logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="lang-ar">تسجيل الخروج</span>
+            <span class="lang-en">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      
+      <!-- Top header -->
+      <header class="admin-header">
+        <div>
+          <h1 style="font-size: 2rem; font-weight: 800;">
+            <span class="lang-ar">إدارة عروض الخصم</span>
+            <span class="lang-en">Offers Management</span>
+          </h1>
+          <p class="admin-title-desc">
+            <span class="lang-ar">أنشئ حملات تسويقية ببنرات مخصصة وعدادات تنازلية حية لرفع نسبة المبيعات</span>
+            <span class="lang-en">Configure banner promotions and edit active countdown schedules</span>
+          </p>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="action-btn" id="lang-toggle-btn"><i class="fa-solid fa-globe"></i></button>
+          <button class="action-btn" id="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+        </div>
+      </header>
+
+      <!-- Offers Table view -->
+      <section class="glass" style="padding: 24px;">
+        <div class="admin-card-header">
+          <h3 style="font-size: 1.25rem; font-weight: 700;">
+            <span class="lang-ar">قائمة العروض الحالية</span>
+            <span class="lang-en">Active Offers & Campaigns</span>
+          </h3>
+          <button class="btn-primary" id="open-off-modal-btn" style="padding: 10px 20px; font-size: 0.9rem;">
+            <i class="fa-solid fa-plus"></i>
+            <span class="lang-ar">إضافة عرض جديد</span>
+            <span class="lang-en">Add New Offer</span>
+          </button>
+        </div>
+
+        <!-- Offers Table -->
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th><span class="lang-ar">عنوان العرض</span><span class="lang-en">Offer Title</span></th>
+                <th><span class="lang-ar">تاريخ البدء</span><span class="lang-en">Start Date</span></th>
+                <th><span class="lang-ar">تاريخ الانتهاء</span><span class="lang-en">End Date</span></th>
+                <th><span class="lang-ar">الحالة</span><span class="lang-en">Status</span></th>
+                <th><span class="lang-ar">الخيارات</span><span class="lang-en">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="offers-table-body">
+              <!-- Loaded dynamically via admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Form Modal (Add / Edit Offer) -->
+  <div class="admin-modal" id="off-modal">
+    <div class="admin-modal-content glass" style="max-width: 680px;">
+      <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;" id="off-modal-title">
+        <span class="lang-ar">إضافة عرض جديد</span>
+        <span class="lang-en">Create New Offer Campaign</span>
+      </h3>
+      
+      <form id="off-form">
+        <input type="hidden" id="off-id">
+
+        <!-- Title inputs -->
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="off-title-ar">
+              <span class="lang-ar">عنوان العرض (بالعربية) *</span>
+              <span class="lang-en">Offer Title (Arabic) *</span>
+            </label>
+            <input type="text" id="off-title-ar" class="admin-form-input" required placeholder="مثال: خصم خاص بنسبة 15%">
+          </div>
+          <div class="admin-form-group">
+            <label for="off-title-en">
+              <span class="lang-ar">عنوان العرض (بالإنجليزية) *</span>
+              <span class="lang-en">Offer Title (English) *</span>
+            </label>
+            <input type="text" id="off-title-en" class="admin-form-input" required placeholder="e.g. 15% Special Discount">
+          </div>
+        </div>
+
+        <!-- Descriptions -->
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="off-desc-ar">
+              <span class="lang-ar">تفاصيل العرض (بالعربية)</span>
+              <span class="lang-en">Description (Arabic)</span>
+            </label>
+            <textarea id="off-desc-ar" class="admin-form-textarea" rows="3" placeholder="اكتب المزايا المشمولة في هذا العرض الترويجي..."></textarea>
+          </div>
+          <div class="admin-form-group">
+            <label for="off-desc-en">
+              <span class="lang-ar">تفاصيل العرض (بالإنجليزية)</span>
+              <span class="lang-en">Description (English)</span>
+            </label>
+            <textarea id="off-desc-en" class="admin-form-textarea" rows="3" placeholder="Details about this bundle, items, and rules..."></textarea>
+          </div>
+        </div>
+
+        <!-- Banner Image -->
+        <div class="admin-form-group">
+          <label for="off-banner-url">
+            <span class="lang-ar">رابط بنر العرض (Image URL)</span>
+            <span class="lang-en">Banner Image URL</span>
+          </label>
+          <input type="text" id="off-banner-url" class="admin-form-input" placeholder="رابط بنر مباشر (أو اسحب ملف للتحميل)">
+        </div>
+
+        <div class="admin-form-group">
+          <div class="drag-drop-area" id="off-drag-drop">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <h4 class="lang-ar">اسحب وأفلت صورة بنر العرض هنا</h4>
+            <h4 class="lang-en">Drag & Drop banner image here</h4>
+            <input type="file" id="off-file-input" accept="image/*" style="display: none;">
+          </div>
+          <div class="image-previews-container" id="off-image-preview-container">
+            <!-- Render preview -->
+          </div>
+        </div>
+
+        <!-- Date picks & Status -->
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="off-start-date">
+              <span class="lang-ar">تاريخ بدء العرض</span>
+              <span class="lang-en">Start Date</span>
+            </label>
+            <input type="date" id="off-start-date" class="admin-form-input" required>
+          </div>
+          <div class="admin-form-group">
+            <label for="off-end-date">
+              <span class="lang-ar">تاريخ انتهاء العرض *</span>
+              <span class="lang-en">End Date (Target Countdown) *</span>
+            </label>
+            <input type="date" id="off-end-date" class="admin-form-input" required>
+          </div>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="off-status">
+            <span class="lang-ar">حالة النشاط</span>
+            <span class="lang-en">Campaign Status</span>
+          </label>
+          <select id="off-status" class="admin-form-select">
+            <option value="active">نشط (Active Banner)</option>
+            <option value="inactive">غير نشط (Draft / Suspended)</option>
+          </select>
+        </div>
+
+        <!-- Submits -->
+        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 30px;">
+          <button type="button" class="btn-secondary" id="close-off-modal-btn" style="padding: 10px 20px;">
+            <span class="lang-ar">إلغاء</span>
+            <span class="lang-en">Cancel</span>
+          </button>
+          <button type="submit" class="btn-primary" style="padding: 10px 20px;">
+            <span class="lang-ar">حفظ العرض</span>
+            <span class="lang-en">Save Offer</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

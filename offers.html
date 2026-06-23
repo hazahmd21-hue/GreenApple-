@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>العروض الحصرية | جرين ابل - Green Apple</title>
+  <meta name="description" content="اكتشف أقوى الخصومات والعروض الترويجية على هواتف الآيفون والإكسسوارات الأصلية في صنعاء لدى متجر جرين ابل. عروض محدودة بأسعار خيالية.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light-mode');
+      } else {
+        document.documentElement.classList.remove('light-mode');
+      }
+      const savedLang = localStorage.getItem('lang') || 'ar';
+      document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = savedLang;
+    })();
+  </script>
+</head>
+<body class="rtl">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="apple-spinner"></div>
+    <div class="loading-logo">Green Apple</div>
+  </div>
+
+  <!-- Header -->
+  <header class="glass-nav">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <i class="fa-brands fa-apple logo-icon"></i>
+        <span class="lang-ar">جرين ابل</span>
+        <span class="lang-en">Green Apple</span>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li>
+            <a href="index.html" class="nav-link">
+              <span class="lang-ar">الرئيسية</span>
+              <span class="lang-en">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="products.html" class="nav-link">
+              <span class="lang-ar">المنتجات</span>
+              <span class="lang-en">Products</span>
+            </a>
+          </li>
+          <li>
+            <a href="offers.html" class="nav-link active">
+              <span class="lang-ar">العروض</span>
+              <span class="lang-en">Offers</span>
+            </a>
+          </li>
+          <li>
+            <a href="about.html" class="nav-link">
+              <span class="lang-ar">من نحن</span>
+              <span class="lang-en">About Us</span>
+            </a>
+          </li>
+          <li>
+            <a href="contact.html" class="nav-link">
+              <span class="lang-ar">تواصل معنا</span>
+              <span class="lang-en">Contact</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="action-btn" id="lang-toggle-btn"><i class="fa-solid fa-globe"></i></button>
+        <button class="action-btn" id="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+        <div class="menu-toggle" id="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header Title -->
+  <section class="section-padding" style="padding-bottom: 20px; padding-top: 130px;">
+    <div class="container">
+      <div class="section-header" style="margin-bottom: 40px;">
+        <h1 class="gradient-text" style="font-size: 3rem; font-weight: 800;">
+          <span class="lang-ar">عروض جرين ابل</span>
+          <span class="lang-en">Special Offers</span>
+        </h1>
+        <p>
+          <span class="lang-ar">عروض وباقات توفير حقيقية وحصرية على الآيفونات والإكسسوارات والشواحن المعتمدة</span>
+          <span class="lang-en">Unmissable deals, dynamic bundles, and active campaigns</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offers Listing Section -->
+  <section class="section-padding" style="padding-top: 10px;">
+    <div class="container" id="offers-list-container">
+      <!-- Banners & timer loaded dynamically -->
+    </div>
+  </section>
+
+  <!-- Video Offers Section -->
+  <section class="section-padding" style="background: rgba(255, 255, 255, 0.01);">
+    <div class="container">
+      <div class="section-header">
+        <h2>
+          <span class="lang-ar">مراجعات الفيديو والعروض المرئية</span>
+          <span class="lang-en">Video Offers</span>
+        </h2>
+        <p>
+          <span class="lang-ar">تابع عروضنا المصورة بالفيديو لأحدث الأجهزة المتاحة بالمحل</span>
+          <span class="lang-en">Watch cinematic specs sheets and walk-around videos</span>
+        </p>
+      </div>
+      <div class="videos-grid" id="offers-videos-container">
+        <!-- Loaded dynamically -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-logo">
+          <i class="fa-brands fa-apple logo-icon"></i>
+          <span class="lang-ar">جرين ابل</span>
+          <span class="lang-en">Green Apple</span>
+        </div>
+        <p class="footer-desc">
+          <span class="lang-ar">محل متخصص في بيع وشراء الآيفونات بجميع أنواعها وبيع الإكسسوارات والشواحن الأصلية والوكالة.</span>
+          <span class="lang-en">Professional store specialized in buying and selling iPhones, smart Apple devices, original accessories, and chargers.</span>
+        </p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/1BL3tYMTKf/" target="_blank" class="social-link"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/1_greenapple" target="_blank" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/967770006661" target="_blank" class="social-link"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h3 class="footer-links-title">
+          <span class="lang-ar">روابط سريعة</span>
+          <span class="lang-en">Quick Links</span>
+        </h3>
+        <ul class="footer-links">
+          <li><a href="index.html"><span class="lang-ar">الرئيسية</span><span class="lang-en">Home</span></a></li>
+          <li><a href="products.html"><span class="lang-ar">المنتجات</span><span class="lang-en">Products</span></a></li>
+          <li><a href="offers.html"><span class="lang-ar">العروض</span><span class="lang-en">Offers</span></a></li>
+          <li><a href="about.html"><span class="lang-ar">من نحن</span><span class="lang-en">About Us</span></a></li>
+          <li><a href="contact.html"><span class="lang-ar">تواصل معنا</span><span class="lang-en">Contact</span></a></li>
+          <li><a href="admin/login.html" target="_blank"><span class="lang-ar">لوحة التحكم</span><span class="lang-en">Admin Dashboard</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-links-title">
+          <span class="lang-ar">معلومات المتجر</span>
+          <span class="lang-en">Store Info</span>
+        </h3>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <div>
+            <span class="lang-ar">صنعاء - شارع القصر - أمام السفارة الصينية</span>
+            <span class="lang-en">Sana'a - Al Qasr Street - In front of the Chinese Embassy</span>
+          </div>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-solid fa-phone"></i>
+          <span dir="ltr">+967 770 006 661</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span dir="ltr">+967 770 006 661</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 <span class="lang-ar">جرين ابل. جميع الحقوق محفوظة.</span><span class="lang-en">Green Apple. All rights reserved.</span></p>
+    </div>
+  </footer>
+
+  <!-- Floating Buttons (Bottom Left) -->
+  <div class="floating-btns-group">
+    <button class="back-to-top" id="back-to-top" title="الرجوع للأعلى">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+    <a href="https://wa.me/967770006661" target="_blank" class="floating-whatsapp" title="تواصل واتساب">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

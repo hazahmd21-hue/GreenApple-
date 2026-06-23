@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      جرين ابل | Green Apple - أفضل مكان لشراء وبيع الآيفونات في اليمن
+    </title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="محل جرين ابل (Green Apple) في صنعاء، شارع القصر. متخصصون في بيع وشراء الآيفونات بجميع أنواعها، الأجهزة الذكية، الإكسسوارات والشواحن الأصلية والوكالة بأفضل الأسعار."
+    />
+    <meta
+      name="keywords"
+      content="جرين ابل, Green Apple, آيفون صنعاء, بيع ايفون اليمن, اكسسوارات ايفون, شاحن اصلي ايفون, شارع القصر صنعاء, ابل اليمن"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://greenapple.netlify.app/" />
+    <meta
+      property="og:title"
+      content="جرين ابل | Green Apple - متجر هواتف آيفون وإكسسواراتها الأصلية"
+    />
+    <meta
+      property="og:description"
+      content="محل جرين ابل (Green Apple) في صنعاء، شارع القصر. متخصصون في بيع وشراء الآيفونات، الأجهزة الذكية، الإكسسوارات والشواحن الأصلية."
+    />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=800"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:title"
+      content="جرين ابل | Green Apple - متجر هواتف آيفون وإكسسواراتها الأصلية"
+    />
+    <meta
+      property="twitter:description"
+      content="محل جرين ابل (Green Apple) في صنعاء، شارع القصر. متخصصون في بيع وشراء الآيفونات، الأجهزة الذكية، الإكسسوارات والشواحن الأصلية."
+    />
+    <meta
+      property="twitter:image"
+      content="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=800"
+    />
+
+    <!-- Fonts & Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Material Symbols (Theme Icons) -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=dark_mode,light_mode"
+    />
+
+    <style>
+      /* توسيط/تلوين أيقونة القمر/الشمس داخل أزرار Theme فقط */
+      .theme-segmented .material-symbols-outlined {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        vertical-align: middle;
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+        font-size: 18px;
+        line-height: 1;
+        color: var(--text-main);
+      }
+
+      html.light-mode .theme-segmented [data-theme-icon="dark"] {
+        color: var(--primary);
+      }
+
+      html:not(.light-mode) .theme-segmented [data-theme-icon="light"] {
+        color: #fff;
+      }
+    </style>
+
+    <!-- Prevents layout flash for Theme and RTL -->
+
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        if (savedTheme === "light") {
+          document.documentElement.classList.add("light-mode");
+        } else {
+          document.documentElement.classList.remove("light-mode");
+        }
+        const savedLang = localStorage.getItem("lang") || "ar";
+        document.documentElement.dir = savedLang === "ar" ? "rtl" : "ltr";
+        document.documentElement.lang = savedLang;
+      })();
+    </script>
+  </head>
+
+  <body class="rtl">
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+      <div class="apple-spinner"></div>
+      <div class="loading-logo">Green Apple</div>
+    </div>
+
+    <!-- Header -->
+    <header class="glass-nav">
+      <div class="container header-container">
+        <a href="index.html" class="logo" id="header-logo">
+          <i class="fa-brands fa-apple logo-icon"></i>
+          <span class="lang-ar">جرين ابل</span>
+          <span class="lang-en">Green Apple</span>
+        </a>
+
+        <!-- Navigation Links -->
+        <nav>
+          <ul class="nav-menu" id="nav-menu">
+            <li>
+              <a href="index.html" class="nav-link active">
+                <span class="lang-ar">الرئيسية</span>
+                <span class="lang-en">Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="products.html" class="nav-link">
+                <span class="lang-ar">المنتجات</span>
+                <span class="lang-en">Products</span>
+              </a>
+            </li>
+            <li>
+              <a href="offers.html" class="nav-link">
+                <span class="lang-ar">العروض</span>
+                <span class="lang-en">Offers</span>
+              </a>
+            </li>
+            <li>
+              <a href="about.html" class="nav-link">
+                <span class="lang-ar">من نحن</span>
+                <span class="lang-en">About Us</span>
+              </a>
+            </li>
+            <li>
+              <a href="contact.html" class="nav-link">
+                <span class="lang-ar">تواصل معنا</span>
+                <span class="lang-en">Contact</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Action buttons -->
+        <div class="header-actions">
+          <button
+            class="lang-pill-btn"
+            id="lang-toggle-btn"
+            type="button"
+            title="تغيير اللغة / Switch Language"
+          >
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <span class="lang-pill-text">العربية / English</span>
+          </button>
+
+          <div
+            class="theme-segmented"
+            id="theme-segmented"
+            role="group"
+            aria-label="Theme"
+          >
+            <div class="theme-seg-indicator" aria-hidden="true"></div>
+
+            <button
+              class="theme-seg-btn"
+              type="button"
+              data-theme="dark"
+              id="theme-toggle-btn"
+              aria-label="Dark Mode"
+            >
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >dark_mode</span
+              >
+            </button>
+
+            <button
+              class="theme-seg-btn"
+              type="button"
+              data-theme="light"
+              aria-label="Light Mode"
+            >
+              <span class="material-symbols-outlined" aria-hidden="true"
+                >light_mode</span
+              >
+            </button>
+
+            <button
+              class="theme-seg-btn"
+              type="button"
+              data-theme="auto"
+              aria-label="System / Auto Mode"
+            >
+              <i class="fa-solid fa-leaf" aria-hidden="true"></i>
+            </button>
+          </div>
+
+          <div class="menu-toggle" id="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1 class="gradient-text">
+            <span class="lang-ar">أفضل مكان لشراء وبيع الآيفونات في اليمن</span>
+            <span class="lang-en">The Best Place To Buy & Sell iPhones</span>
+          </h1>
+          <p>
+            <span class="lang-ar"
+              >مرحبًا بكم في جرين ابل، وجهتكم الأولى لبيع وشراء هواتف الآيفون
+              بجميع فئاتها، بالإضافة إلى تشكيلة واسعة من الإكسسوارات والملحقات
+              والشواحن الأصلية المعتمدة.</span
+            >
+            <span class="lang-en"
+              >Welcome to Green Apple, your premier destination for buying and
+              selling iPhones, along with a wide collection of original
+              certified accessories, chargers, and smart devices.</span
+            >
+          </p>
+
+          <div class="hero-btns">
+            <a href="products.html" class="btn-primary">
+              <i class="fa-solid fa-bag-shopping"></i>
+              <span class="lang-ar">تصفح المنتجات</span>
+              <span class="lang-en">Browse Products</span>
+            </a>
+            <a
+              href="https://wa.me/967770006661"
+              target="_blank"
+              class="btn-secondary"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 .02 5.35.02 11.98c0 2.1.55 4.14 1.6 5.95L0 24l6.24-1.62a12 12 0 0 0 5.76 1.47h.02c6.63 0 11.98-5.35 11.98-11.98c0-3.17-1.25-6.21-3.48-8.39ZM12.02 21.6h-.02c-1.8 0-3.56-.48-5.11-1.39l-.36-.21l-3.09.8l.84-3.02l-.23-.37a9.77 9.77 0 0 1-1.48-5.23C3.57 5.86 7.7 1.73 12.02 1.73c2.1 0 4.08.82 5.57 2.31A9.82 9.82 0 0 1 21.31 9.6c0 5.31-4.3 12-9.29 12Zm5.4-7.91c-.3-.15-1.78-.88-2.06-.98c-.28-.1-.46-.15-.66.15c-.2.3-.76.98-.93 1.18c-.17.2-.34.23-.64.08c-.3-.15-1.26-.46-2.4-1.48c-.89-.8-1.48-1.79-1.65-2.09c-.17-.3-.02-.46.13-.61c.14-.14.3-.34.45-.51c.15-.17.2-.28.3-.46c.1-.18.05-.35-.02-.5c-.08-.15-.66-1.58-.9-2.17c-.24-.58-.48-.5-.66-.51h-.56c-.18 0-.46.07-.7.35c-.24.28-.92.9-.92 2.19s.94 2.55 1.07 2.72c.13.17 1.85 2.82 4.48 3.95c.63.27 1.12.43 1.5.55c.63.2 1.2.17 1.65.1c.5-.07 1.78-.73 2.03-1.44c.25-.71.25-1.32.17-1.44c-.08-.12-.28-.2-.58-.35Z"/></svg>
+              <span class="lang-ar">تواصل واتساب</span
+              <span class="lang-en">WhatsApp Us</span>
+            </a>
+          </div>
+
+          <!-- Premium Social Media Component (Apple-style) -->
+          <div class="section-social-group" aria-label="Social Media">
+            <div class="social-icons-group social-icons-horizontal">
+              <a
+                href="https://www.instagram.com/1_greenapple"
+                target="_blank"
+                rel="noopener"
+                class="social-icon-pill si-instagram"
+                title="Instagram"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4ZM12 7a5 5 0 1 1 0 10a5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6a3 3 0 0 0 0-6Zm6.2-2.2a1 1 0 1 1-2 0a1 1 0 0 1 2 0Z"/></svg>
+              </a>
+              <a
+                href="https://www.facebook.com/share/1BL3tYMTKf/"
+                target="_blank"
+                rel="noopener"
+                class="social-icon-pill si-facebook"
+                title="Facebook"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3H13.5V9.2c0-.8.2-1.3 1.4-1.3H16.7V5.2c-.6-.1-1.8-.2-3.1-.2c-2.8 0-4.7 1.7-4.7 4.8V11H6v3h3v8h4.5Z"/></svg>
+              </a>
+              <a
+                href="https://wa.me/967770006661"
+                target="_blank"
+                rel="noopener"
+                class="social-icon-pill si-whatsapp"
+                title="WhatsApp"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 .02 5.35.02 11.98c0 2.1.55 4.14 1.6 5.95L0 24l6.24-1.62a12 12 0 0 0 5.76 1.47h.02c6.63 0 11.98-5.35 11.98-11.98c0-3.17-1.25-6.21-3.48-8.39ZM12.02 21.6h-.02c-1.8 0-3.56-.48-5.11-1.39l-.36-.21l-3.09.8l.84-3.02l-.23-.37a9.77 9.77 0 0 1-1.48-5.23C3.57 5.86 7.7 1.73 12.02 1.73c2.1 0 4.08.82 5.57 2.31A9.82 9.82 0 0 1 21.31 9.6c0 5.31-4.3 12-9.29 12Zm5.4-7.91c-.3-.15-1.78-.88-2.06-.98c-.28-.1-.46-.15-.66.15c-.2.3-.76.98-.93 1.18c-.17.2-.34.23-.64.08c-.3-.15-1.26-.46-2.4-1.48c-.89-.8-1.48-1.79-1.65-2.09c-.17-.3-.02-.46.13-.61c.14-.14.3-.34.45-.51c.15-.17.2-.28.3-.46c.1-.18.05-.35-.02-.5c-.08-.15-.66-1.58-.9-2.17c-.24-.58-.48-.5-.66-.51h-.56c-.18 0-.46.07-.7.35c-.24.28-.92.9-.92 2.19s.94 2.55 1.07 2.72c.13.17 1.85 2.82 4.48 3.95c.63.27 1.12.43 1.5.55c.63.2 1.2.17 1.65.1c.5-.07 1.78-.73 2.03-1.44c.25-.71.25-1.32.17-1.44c-.08-.12-.28-.2-.58-.35Z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image-container">
+          <div class="hero-image-wrapper">
+            <img
+              src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=800"
+              alt="iPhone 15 Pro Max Natural Titanium"
+              class="hero-device-img"
+            />
+            <div class="hero-backdrop-glow"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <h2>
+            <span class="lang-ar">الأقسام الرئيسية</span>
+            <span class="lang-en">Product Categories</span>
+          </h2>
+          <p>
+            <span class="lang-ar"
+              >تصفح منتجاتنا المميزة حسب التصنيفات المختلفة</span
+            >
+            <span class="lang-en"
+              >Explore our high-end products filtered by department</span
+            >
+          </p>
+        </div>
+        <div class="category-grid" id="categories-container">
+          <!-- Loaded dynamically from admin/storage -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section
+      class="section-padding"
+      style="background: rgba(255, 255, 255, 0.01)"
+    >
+      <div class="container">
+        <div class="section-header">
+          <h2>
+            <span class="lang-ar">المنتجات المميزة</span>
+            <span class="lang-en">Featured Products</span>
+          </h2>
+          <p>
+            <span class="lang-ar"
+              >أحدث الأجهزة والإكسسوارات المختارة بعناية وبأفضل الأسعار</span
+            >
+            <span class="lang-en"
+              >Selected iPhones and accessories with premium offers and
+              warranties</span
+            >
+          </p>
+        </div>
+        <div class="products-grid" id="featured-products-container">
+          <!-- Loaded dynamically -->
+        </div>
+        <div style="text-align: center; margin-top: 50px">
+          <a href="products.html" class="btn-secondary">
+            <span class="lang-ar">عرض جميع المنتجات</span>
+            <span class="lang-en">View All Products</span>
+            <i class="fa-solid fa-arrow-left nav-arrow"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Offers & Promo Section -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <h2>
+            <span class="lang-ar">أقوى العروض الحالية</span>
+            <span class="lang-en">Latest Hot Deals</span>
+          </h2>
+          <p>
+            <span class="lang-ar"
+              >لا تفوت فرصة الحصول على خصومات حصرية لفترة محدودة</span
+            >
+            <span class="lang-en"
+              >Don't miss our exclusive discounts and package deals</span
+            >
+          </p>
+        </div>
+        <div id="index-offers-container">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Video Offers Section -->
+    <section
+      class="section-padding"
+      style="background: rgba(255, 255, 255, 0.01)"
+    >
+      <div class="container">
+        <div class="section-header">
+          <h2>
+            <span class="lang-ar">عروض الفيديو المباشرة</span>
+            <span class="lang-en">Video Showcases</span>
+          </h2>
+          <p>
+            <span class="lang-ar"
+              >شاهد مراجعات مرئية سريعة لأحدث الأجهزة وتفاصيل جودتها</span
+            >
+            <span class="lang-en"
+              >Watch short reviews and cinematic previews of our devices</span
+            >
+          </p>
+        </div>
+        <div class="videos-grid" id="videos-container">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Features section -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <h2>
+            <span class="lang-ar">لماذا تختار جرين ابل؟</span>
+            <span class="lang-en">Why Choose Green Apple?</span>
+          </h2>
+          <p>
+            <span class="lang-ar"
+              >نضمن لك تجربة شراء آمنة وفريدة مبنية على الجودة والاحترافية</span
+            >
+            <span class="lang-en"
+              >We deliver the ultimate safety, warranty, and customer
+              satisfaction</span
+            >
+          </p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-box glass">
+            <div class="feature-icon-wrapper">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>
+              <span class="lang-ar">منتجات أصلية 100%</span>
+              <span class="lang-en">100% Original Products</span>
+            </h3>
+            <p>
+              <span class="lang-ar"
+                >نضمن أن جميع الأجهزة والشواحن والإكسسوارات المعروضة أصلية
+                ومطابقة للمواصفات العالمية.</span
+              >
+              <span class="lang-en"
+                >We guarantee all our iPhones and chargers are authentic
+                certified products.</span
+              >
+            </p>
+          </div>
+
+          <div class="feature-box glass">
+            <div class="feature-icon-wrapper">
+              <i class="fa-solid fa-tags"></i>
+            </div>
+            <h3>
+              <span class="lang-ar">أسعار منافسة</span>
+              <span class="lang-en">Competitive Prices</span>
+            </h3>
+            <p>
+              <span class="lang-ar"
+                >نقدم أفضل الأسعار في السوق اليمني لبيع وشراء أجهزة الآيفون مع
+                توفير خيارات دفع مرنة.</span
+              >
+              <span class="lang-en"
+                >Get the best deal for buying, selling, or trading your iPhone
+                in the Sana'a market.</span
+              >
+            </p>
+          </div>
+
+          <div class="feature-box glass">
+            <div class="feature-icon-wrapper">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <h3>
+              <span class="lang-ar">ضمان الجودة</span>
+              <span class="lang-en">Quality Guarantee</span>
+            </h3>
+            <p>
+              <span class="lang-ar"
+                >تحصل على فحص كامل للقطع والبطارية مع كرت ضمان حقيقي وموثق من
+                المحل.</span
+              >
+              <span class="lang-en"
+                >All trade-ins and items undergo thorough inspection with real
+                physical warranties.</span
+              >
+            </p>
+          </div>
+
+          <div class="feature-box glass">
+            <div class="feature-icon-wrapper">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <h3>
+              <span class="lang-ar">دعم واتساب مباشر</span>
+              <span class="lang-en">Direct WhatsApp Support</span>
+            </h3>
+            <p>
+              <span class="lang-ar"
+                >فريق مبيعاتنا متواجد للرد على استفساراتكم وحجز طلباتكم بسرعة
+                فائقة طوال اليوم.</span
+              >
+              <span class="lang-en"
+                >Chat with our customer service reps for prompt support and
+                instant orders.</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section
+      class="section-padding"
+      style="background: rgba(255, 255, 255, 0.01)"
+    >
+      <div class="container">
+        <div class="section-header">
+          <h2>
+            <span class="lang-ar">معرض الصور</span>
+            <span class="lang-en">Photo Gallery</span>
+          </h2>
+          <p>
+            <span class="lang-ar"
+              >لقطات حقيقية من متجرنا للأجهزة والإكسسوارات المتوفرة</span
+            >
+            <span class="lang-en"
+              >Take a look inside our storefront, devices, and inventory</span
+            >
+          </p>
+        </div>
+        <div class="gallery-grid" id="gallery-container">
+          <div
+            class="gallery-item"
+            data-src="https://images.unsplash.com/photo-1556656793-08538906a9f8?q=80&w=800"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1556656793-08538906a9f8?q=80&w=400"
+              alt="Green Apple Store"
+            />
+            <div class="gallery-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+            </div>
+          </div>
+          <div
+            class="gallery-item"
+            data-src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=800"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=400"
+              alt="iPhone 15 Pro Natural Titanium"
+            />
+            <div class="gallery-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+            </div>
+          </div>
+          <div
+            class="gallery-item"
+            data-src="https://images.unsplash.com/photo-1588449668365-d15e397f6787?q=80&w=800"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1588449668365-d15e397f6787?q=80&w=400"
+              alt="AirPods Pro 2"
+            />
+            <div class="gallery-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+            </div>
+          </div>
+          <div
+            class="gallery-item"
+            data-src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?q=80&w=800"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?q=80&w=400"
+              alt="Apple Watch"
+            />
+            <div class="gallery-overlay">
+              <i class="fa-solid fa-magnifying-glass-plus"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Reviews -->
+    <section class="section-padding">
+      <div class="container">
+        <div class="section-header">
+          <h2>
+            <span class="lang-ar">آراء عملائنا</span>
+            <span class="lang-en">Customer Testimonials</span>
+          </h2>
+          <p>
+            <span class="lang-ar"
+              >نفخر بثقة آلاف العملاء في خدماتنا بمدينة صنعاء</span
+            >
+            <span class="lang-en"
+              >We pride ourselves on the feedback from our valued
+              customers</span
+            >
+          </p>
+        </div>
+        <div class="reviews-container glass">
+          <div class="reviews-wrapper" id="reviews-wrapper">
+            <div class="review-slide">
+              <div class="review-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="review-text">
+                "تعاملت مع محل جرين ابل لشراء آيفون 15 برو، والخدمة كانت ممتازة
+                جداً. الجهاز أصلي 100% والضمان حقيقي، وأسعارهم ممتازة مقارنة
+                بالسوق في شارع القصر."
+              </p>
+              <div class="review-author">
+                <div>
+                  <h4 class="review-name">أحمد الكبسي</h4>
+                  <span class="review-title">صنعاء</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="review-slide">
+              <div class="review-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p class="review-text">
+                "أفضل محل لبيع الشواحن الأصلية المعتمدة من شركة أبل. اشتريت شاحن
+                20 واط وسلك شحن مع ضمان، والرد كان سريع جداً على الواتساب."
+              </p>
+              <div class="review-author">
+                <div>
+                  <h4 class="review-name">سامي اليريمي</h4>
+                  <span class="review-title">صنعاء - موظف</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="reviews-nav" id="reviews-nav-dots">
+            <span class="reviews-nav-dot active" data-slide="0"></span>
+            <span class="reviews-nav-dot" data-slide="1"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Map Section -->
+    <section
+      class="section-padding"
+      style="background: rgba(255, 255, 255, 0.01)"
+      id="contact-section"
+    >
+      <div class="container">
+        <div class="section-header">
+          <h2>
+            <span class="lang-ar">تواصل معنا</span>
+            <span class="lang-en">Get In Touch</span>
+          </h2>
+          <p>
+            <span class="lang-ar"
+              >تفضل بزيارتنا في المحل أو تواصل معنا مباشرة عبر القنوات
+              المتاحة</span
+            >
+            <span class="lang-en"
+              >Visit our store or ping us via any of our digital endpoints</span
+            >
+          </p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-card-item glass">
+              <div class="contact-card-icon">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div class="contact-card-body">
+                <h4 class="lang-ar">العنوان</h4>
+                <h4 class="lang-en">Our Address</h4>
+                <p class="lang-ar">صنعاء - شارع القصر - أمام السفارة الصينية</p>
+                <p class="lang-en">
+                  Sana'a - Al Qasr Street - In front of the Chinese Embassy
+                </p>
+              </div>
+            </div>
+            <div class="contact-card-item glass">
+              <div class="contact-card-icon">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div class="contact-card-body">
+                <h4 class="lang-ar">الهاتف</h4>
+                <h4 class="lang-en">Phone Number</h4>
+                <p>
+                  <a href="tel:+967770006661" dir="ltr">+967 770 006 661</a>
+                </p>
+              </div>
+            </div>
+            <div class="contact-card-item glass">
+              <div class="contact-card-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 .02 5.35.02 11.98c0 2.1.55 4.14 1.6 5.95L0 24l6.24-1.62a12 12 0 0 0 5.76 1.47h.02c6.63 0 11.98-5.35 11.98-11.98c0-3.17-1.25-6.21-3.48-8.39ZM12.02 21.6h-.02c-1.8 0-3.56-.48-5.11-1.39l-.36-.21l-3.09.8l.84-3.02l-.23-.37a9.77 9.77 0 0 1-1.48-5.23C3.57 5.86 7.7 1.73 12.02 1.73c2.1 0 4.08.82 5.57 2.31A9.82 9.82 0 0 1 21.31 9.6c0 5.31-4.3 12-9.29 12Zm5.4-7.91c-.3-.15-1.78-.88-2.06-.98c-.28-.1-.46-.15-.66.15c-.2.3-.76.98-.93 1.18c-.17.2-.34.23-.64.08c-.3-.15-1.26-.46-2.4-1.48c-.89-.8-1.48-1.79-1.65-2.09c-.17-.3-.02-.46.13-.61c.14-.14.3-.34.45-.51c.15-.17.2-.28.3-.46c.1-.18.05-.35-.02-.5c-.08-.15-.66-1.58-.9-2.17c-.24-.58-.48-.5-.66-.51h-.56c-.18 0-.46.07-.7.35c-.24.28-.92.9-.92 2.19s.94 2.55 1.07 2.72c.13.17 1.85 2.82 4.48 3.95c.63.27 1.12.43 1.5.55c.63.2 1.2.17 1.65.1c.5-.07 1.78-.73 2.03-1.44c.25-.71.25-1.32.17-1.44c-.08-.12-.28-.2-.58-.35Z"/></svg>
+              </div>
+              <div class="contact-card-body">
+                <h4 class="lang-ar">واتساب مباشر</h4>
+                <h4 class="lang-en">WhatsApp Direct</h4>
+                <p>
+                  <a href="https://wa.me/967770006661" target="_blank" dir="ltr"
+                    >+967 770 006 661</a
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div class="contact-card-item glass">
+              <div class="contact-card-icon">
+                <i class="fa-solid fa-share-nodes"></i>
+              </div>
+              <div class="contact-card-body">
+                <h4 class="lang-ar">مواقع التواصل</h4>
+                <h4 class="lang-en">Social Channels</h4>
+                <div
+                  class="section-social-group"
+                  style="margin-top: 14px; border-top: none; padding-top: 0"
+                >
+                  <div class="social-icons-group social-icons-horizontal">
+                    <a
+                      href="https://www.facebook.com/share/1BL3tYMTKf/"
+                      target="_blank"
+                      rel="noopener"
+                      class="social-icon-pill si-facebook"
+                      title="Facebook"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3H13.5V9.2c0-.8.2-1.3 1.4-1.3H16.7V5.2c-.6-.1-1.8-.2-3.1-.2c-2.8 0-4.7 1.7-4.7 4.8V11H6v3h3v8h4.5Z"/></svg>
+                    </a>
+                    <a
+                      href="https://www.instagram.com/1_greenapple"
+                      target="_blank"
+                      rel="noopener"
+                      class="social-icon-pill si-instagram"
+                      title="Instagram"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4ZM12 7a5 5 0 1 1 0 10a5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6a3 3 0 0 0 0-6Zm6.2-2.2a1 1 0 1 1-2 0a1 1 0 0 1 2 0Z"/></svg>
+                    </a>
+                    <a
+                      href="https://wa.me/967770006661"
+                      target="_blank"
+                      rel="noopener"
+                      class="social-icon-pill si-whatsapp"
+                      title="WhatsApp"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 .02 5.35.02 11.98c0 2.1.55 4.14 1.6 5.95L0 24l6.24-1.62a12 12 0 0 0 5.76 1.47h.02c6.63 0 11.98-5.35 11.98-11.98c0-3.17-1.25-6.21-3.48-8.39ZM12.02 21.6h-.02c-1.8 0-3.56-.48-5.11-1.39l-.36-.21l-3.09.8l.84-3.02l-.23-.37a9.77 9.77 0 0 1-1.48-5.23C3.57 5.86 7.7 1.73 12.02 1.73c2.1 0 4.08.82 5.57 2.31A9.82 9.82 0 0 1 21.31 9.6c0 5.31-4.3 12-9.29 12Zm5.4-7.91c-.3-.15-1.78-.88-2.06-.98c-.28-.1-.46-.15-.66.15c-.2.3-.76.98-.93 1.18c-.17.2-.34.23-.64.08c-.3-.15-1.26-.46-2.4-1.48c-.89-.8-1.48-1.79-1.65-2.09c-.17-.3-.02-.46.13-.61c.14-.14.3-.34.45-.51c.15-.17.2-.28.3-.46c.1-.18.05-.35-.02-.5c-.08-.15-.66-1.58-.9-2.17c-.24-.58-.48-.5-.66-.51h-.56c-.18 0-.46.07-.7.35c-.24.28-.92.9-.92 2.19s.94 2.55 1.07 2.72c.13.17 1.85 2.82 4.48 3.95c.63.27 1.12.43 1.5.55c.63.2 1.2.17 1.65.1c.5-.07 1.78-.73 2.03-1.44c.25-.71.25-1.32.17-1.44c-.08-.12-.28-.2-.58-.35Z"/></svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.568449557876!2d44.20579737590886!3d15.345091758410766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1603db798696fa2d%3A0xc07a82ec458e08d6!2z2KfZhNiz2YHYp9ix2Kkg2KfZhNi12YrZhtmK2Kk!5e0!3m2!1sar!2sye!4v1700000000000!5m2!1sar!2sye"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-logo">
+            <i class="fa-brands fa-apple logo-icon"></i>
+            <span class="lang-ar">جرين ابل</span>
+            <span class="lang-en">Green Apple</span>
+          </div>
+          <p class="footer-desc">
+            <span class="lang-ar"
+              >محل متخصص في بيع وشراء الآيفونات بجميع أنواعها وبيع الإكسسوارات
+              والشواحن الأصلية والوكالة.</span
+            >
+            <span class="lang-en"
+              >Professional store specialized in buying and selling iPhones,
+              smart Apple devices, original accessories, and chargers.</span
+            >
+          </p>
+
+          <div class="section-social-group" aria-label="Social Media">
+            <div class="social-icons-group social-icons-horizontal">
+              <a
+                href="https://www.instagram.com/1_greenapple"
+                target="_blank"
+                rel="noopener"
+                class="social-icon-pill si-instagram"
+                title="Instagram"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4ZM12 7a5 5 0 1 1 0 10a5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6a3 3 0 0 0 0-6Zm6.2-2.2a1 1 0 1 1-2 0a1 1 0 0 1 2 0Z"/></svg>
+              </a>
+              <a
+                href="https://www.facebook.com/share/1BL3tYMTKf/"
+                target="_blank"
+                rel="noopener"
+                class="social-icon-pill si-facebook"
+                title="Facebook"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M13.5 22v-8h2.7l.4-3H13.5V9.2c0-.8.2-1.3 1.4-1.3H16.7V5.2c-.6-.1-1.8-.2-3.1-.2c-2.8 0-4.7 1.7-4.7 4.8V11H6v3h3v8h4.5Z"/></svg>
+              </a>
+              <a
+                href="https://wa.me/967770006661"
+                target="_blank"
+                rel="noopener"
+                class="social-icon-pill si-whatsapp"
+                title="WhatsApp"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 .02 5.35.02 11.98c0 2.1.55 4.14 1.6 5.95L0 24l6.24-1.62a12 12 0 0 0 5.76 1.47h.02c6.63 0 11.98-5.35 11.98-11.98c0-3.17-1.25-6.21-3.48-8.39ZM12.02 21.6h-.02c-1.8 0-3.56-.48-5.11-1.39l-.36-.21l-3.09.8l.84-3.02l-.23-.37a9.77 9.77 0 0 1-1.48-5.23C3.57 5.86 7.7 1.73 12.02 1.73c2.1 0 4.08.82 5.57 2.31A9.82 9.82 0 0 1 21.31 9.6c0 5.31-4.3 12-9.29 12Zm5.4-7.91c-.3-.15-1.78-.88-2.06-.98c-.28-.1-.46-.15-.66.15c-.2.3-.76.98-.93 1.18c-.17.2-.34.23-.64.08c-.3-.15-1.26-.46-2.4-1.48c-.89-.8-1.48-1.79-1.65-2.09c-.17-.3-.02-.46.13-.61c.14-.14.3-.34.45-.51c.15-.17.2-.28.3-.46c.1-.18.05-.35-.02-.5c-.08-.15-.66-1.58-.9-2.17c-.24-.58-.48-.5-.66-.51h-.56c-.18 0-.46.07-.7.35c-.24.28-.92.9-.92 2.19s.94 2.55 1.07 2.72c.13.17 1.85 2.82 4.48 3.95c.63.27 1.12.43 1.5.55c.63.2 1.2.17 1.65.1c.5-.07 1.78-.73 2.03-1.44c.25-.71.25-1.32.17-1.44c-.08-.12-.28-.2-.58-.35Z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="footer-links-title">
+            <span class="lang-ar">روابط سريعة</span>
+            <span class="lang-en">Quick Links</span>
+          </h3>
+          <ul class="footer-links">
+            <li>
+              <a href="index.html"
+                ><span class="lang-ar">الرئيسية</span
+                ><span class="lang-en">Home</span></a
+              >
+            </li>
+            <li>
+              <a href="products.html"
+                ><span class="lang-ar">المنتجات</span
+                ><span class="lang-en">Products</span></a
+              >
+            </li>
+            <li>
+              <a href="offers.html"
+                ><span class="lang-ar">العروض</span
+                ><span class="lang-en">Offers</span></a
+              >
+            </li>
+            <li>
+              <a href="about.html"
+                ><span class="lang-ar">من نحن</span
+                ><span class="lang-en">About Us</span></a
+              >
+            </li>
+            <li>
+              <a href="contact.html"
+                ><span class="lang-ar">تواصل معنا</span
+                ><span class="lang-en">Contact</span></a
+              >
+            </li>
+            <li>
+              <a href="admin/login.html" target="_blank"
+                ><span class="lang-ar">لوحة التحكم</span
+                ><span class="lang-en">Admin Dashboard</span></a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-links-title">
+            <span class="lang-ar">معلومات المتجر</span>
+            <span class="lang-en">Store Info</span>
+          </h3>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <span class="lang-ar"
+                >صنعاء - شارع القصر - أمام السفارة الصينية</span
+              >
+              <span class="lang-en"
+                >Sana'a - Al Qasr Street - In front of the Chinese Embassy</span
+              >
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <span dir="ltr">+967 770 006 661</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 .02 5.35.02 11.98c0 2.1.55 4.14 1.6 5.95L0 24l6.24-1.62a12 12 0 0 0 5.76 1.47h.02c6.63 0 11.98-5.35 11.98-11.98c0-3.17-1.25-6.21-3.48-8.39ZM12.02 21.6h-.02c-1.8 0-3.56-.48-5.11-1.39l-.36-.21l-3.09.8l.84-3.02l-.23-.37a9.77 9.77 0 0 1-1.48-5.23C3.57 5.86 7.7 1.73 12.02 1.73c2.1 0 4.08.82 5.57 2.31A9.82 9.82 0 0 1 21.31 9.6c0 5.31-4.3 12-9.29 12Zm5.4-7.91c-.3-.15-1.78-.88-2.06-.98c-.28-.1-.46-.15-.66.15c-.2.3-.76.98-.93 1.18c-.17.2-.34.23-.64.08c-.3-.15-1.26-.46-2.4-1.48c-.89-.8-1.48-1.79-1.65-2.09c-.17-.3-.02-.46.13-.61c.14-.14.3-.34.45-.51c.15-.17.2-.28.3-.46c.1-.18.05-.35-.02-.5c-.08-.15-.66-1.58-.9-2.17c-.24-.58-.48-.5-.66-.51h-.56c-.18 0-.46.07-.7.35c-.24.28-.92.9-.92 2.19s.94 2.55 1.07 2.72c.13.17 1.85 2.82 4.48 3.95c.63.27 1.12.43 1.5.55c.63.2 1.2.17 1.65.1c.5-.07 1.78-.73 2.03-1.44c.25-.71.25-1.32.17-1.44c-.08-.12-.28-.2-.58-.35Z"/></svg>
+            <span dir="ltr">+967 770 006 661</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>
+          &copy; 2026 <span class="lang-ar">جرين ابل. جميع الحقوق محفوظة.</span
+          ><span class="lang-en">Green Apple. All rights reserved.</span>
+        </p>
+      </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-modal" id="lightbox-modal">
+      <div class="lightbox-content-wrapper">
+        <span class="lightbox-close" id="lightbox-close">&times;</span>
+        <button class="lightbox-btn lightbox-prev" id="lightbox-prev">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <img
+          src=""
+          alt="Lightbox View"
+          class="lightbox-img"
+          id="lightbox-img"
+        />
+        <button class="lightbox-btn lightbox-next" id="lightbox-next">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Floating WhatsApp & Scroll To Top -->
+    <a
+      href="https://wa.me/967770006661"
+      target="_blank"
+      class="floating-whatsapp"
+      title="تواصل واتساب"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em" aria-hidden="true" focusable="false" style="display:block"><path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 .02 5.35.02 11.98c0 2.1.55 4.14 1.6 5.95L0 24l6.24-1.62a12 12 0 0 0 5.76 1.47h.02c6.63 0 11.98-5.35 11.98-11.98c0-3.17-1.25-6.21-3.48-8.39ZM12.02 21.6h-.02c-1.8 0-3.56-.48-5.11-1.39l-.36-.21l-3.09.8l.84-3.02l-.23-.37a9.77 9.77 0 0 1-1.48-5.23C3.57 5.86 7.7 1.73 12.02 1.73c2.1 0 4.08.82 5.57 2.31A9.82 9.82 0 0 1 21.31 9.6c0 5.31-4.3 12-9.29 12Zm5.4-7.91c-.3-.15-1.78-.88-2.06-.98c-.28-.1-.46-.15-.66.15c-.2.3-.76.98-.93 1.18c-.17.2-.34.23-.64.08c-.3-.15-1.26-.46-2.4-1.48c-.89-.8-1.48-1.79-1.65-2.09c-.17-.3-.02-.46.13-.61c.14-.14.3-.34.45-.51c.15-.17.2-.28.3-.46c.1-.18.05-.35-.02-.5c-.08-.15-.66-1.58-.9-2.17c-.24-.58-.48-.5-.66-.51h-.56c-.18 0-.46.07-.7.35c-.24.28-.92.9-.92 2.19s.94 2.55 1.07 2.72c.13.17 1.85 2.82 4.48 3.95c.63.27 1.12.43 1.5.55c.63.2 1.2.17 1.65.1c.5-.07 1.78-.73 2.03-1.44c.25-.71.25-1.32.17-1.44c-.08-.12-.28-.2-.58-.35Z"/></svg>
+    </a>
+    <button class="back-to-top" id="back-to-top" title="الرجوع للأعلى">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="1.2em"
+        height="1.2em"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path
+          fill="currentColor"
+          d="M5 13l7-7 7 7-1.4 1.4L12 8.8l-5.6 5.6L5 13z"
+        />
+      </svg>
+    </button>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

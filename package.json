@@ -1,0 +1,11 @@
+{
+  "name": "green-apple-ecommerce",
+  "version": "1.0.0",
+  "description": "Green Apple - Premium Smartphone E-Commerce and Admin Dashboard",
+  "scripts": {
+    "dev": "netlify dev"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.1"
+  }
+}

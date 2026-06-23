@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إدارة الأقسام | لوحة التحكم - Green Apple</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') {
+        document.documentElement.classList.add('light-mode');
+      } else {
+        document.documentElement.classList.remove('light-mode');
+      }
+      const savedLang = localStorage.getItem('lang') || 'ar';
+      document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+      document.documentElement.lang = savedLang;
+    })();
+  </script>
+</head>
+<body class="rtl">
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="apple-spinner"></div>
+    <div class="loading-logo">Green Apple</div>
+  </div>
+
+  <div class="admin-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar glass-nav">
+      <div class="admin-logo">
+        <i class="fa-brands fa-apple"></i>
+        <span class="lang-ar">جرين ابل</span>
+        <span class="lang-en">Green Apple</span>
+      </div>
+      <ul class="admin-nav">
+        <li>
+          <a href="dashboard.html" class="admin-nav-link">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span class="lang-ar">لوحة الإحصائيات</span>
+            <span class="lang-en">Statistics</span>
+          </a>
+        </li>
+        <li>
+          <a href="categories.html" class="admin-nav-link active">
+            <i class="fa-solid fa-list"></i>
+            <span class="lang-ar">إدارة الأقسام</span>
+            <span class="lang-en">Categories</span>
+          </a>
+        </li>
+        <li>
+          <a href="products.html" class="admin-nav-link">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <span class="lang-ar">إدارة المنتجات</span>
+            <span class="lang-en">Products</span>
+          </a>
+        </li>
+        <li>
+          <a href="offers.html" class="admin-nav-link">
+            <i class="fa-solid fa-tags"></i>
+            <span class="lang-ar">إدارة العروض</span>
+            <span class="lang-en">Offers</span>
+          </a>
+        </li>
+        <li>
+          <a href="videos.html" class="admin-nav-link">
+            <i class="fa-solid fa-video"></i>
+            <span class="lang-ar">إدارة الفيديوهات</span>
+            <span class="lang-en">Videos</span>
+          </a>
+        </li>
+        <li style="margin-top: auto;">
+          <a href="#" class="admin-nav-link admin-logout" id="admin-logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span class="lang-ar">تسجيل الخروج</span>
+            <span class="lang-en">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      
+      <!-- Top header -->
+      <header class="admin-header">
+        <div>
+          <h1 style="font-size: 2rem; font-weight: 800;">
+            <span class="lang-ar">إدارة أقسام المتجر</span>
+            <span class="lang-en">Categories Management</span>
+          </h1>
+          <p class="admin-title-desc">
+            <span class="lang-ar">إضافة أو تعديل تصنيفات المنتجات التي تظهر في الصفحة الرئيسية وصفحة الكتالوج</span>
+            <span class="lang-en">Manage the store divisions and category options shown to customers</span>
+          </p>
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="action-btn" id="lang-toggle-btn"><i class="fa-solid fa-globe"></i></button>
+          <button class="action-btn" id="theme-toggle-btn"><i class="fa-solid fa-moon"></i></button>
+        </div>
+      </header>
+
+      <!-- Category table card -->
+      <section class="glass" style="padding: 24px;">
+        <div class="admin-card-header">
+          <h3 style="font-size: 1.25rem; font-weight: 700;">
+            <span class="lang-ar">قائمة الأقسام الحالية</span>
+            <span class="lang-en">Active Categories</span>
+          </h3>
+          <button class="btn-primary" id="open-cat-modal-btn" style="padding: 10px 20px; font-size: 0.9rem;">
+            <i class="fa-solid fa-plus"></i>
+            <span class="lang-ar">إضافة قسم جديد</span>
+            <span class="lang-en">Add New Category</span>
+          </button>
+        </div>
+
+        <!-- Categories Table -->
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th><span class="lang-ar">معرف القسم</span><span class="lang-en">Category ID</span></th>
+                <th><span class="lang-ar">الاسم بالعربية</span><span class="lang-en">Name (AR)</span></th>
+                <th><span class="lang-ar">الاسم بالإنجليزية</span><span class="lang-en">Name (EN)</span></th>
+                <th><span class="lang-ar">الخيارات</span><span class="lang-en">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="categories-table-body">
+              <!-- Loaded dynamically via admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Form Modal (Add / Edit) -->
+  <div class="admin-modal" id="cat-modal">
+    <div class="admin-modal-content glass">
+      <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;" id="cat-modal-title">
+        <span class="lang-ar">إضافة قسم جديد</span>
+        <span class="lang-en">Add Category</span>
+      </h3>
+      
+      <form id="cat-form">
+        <!-- Hidden input for edit mode identification -->
+        <input type="hidden" id="cat-id">
+
+        <div class="admin-form-group">
+          <label for="cat-name-ar">
+            <span class="lang-ar">اسم القسم (بالعربية)</span>
+            <span class="lang-en">Category Name (Arabic)</span>
+          </label>
+          <input type="text" id="cat-name-ar" class="admin-form-input" required placeholder="مثال: الآيفونات">
+        </div>
+
+        <div class="admin-form-group">
+          <label for="cat-name-en">
+            <span class="lang-ar">اسم القسم (بالإنجليزية)</span>
+            <span class="lang-en">Category Name (English)</span>
+          </label>
+          <input type="text" id="cat-name-en" class="admin-form-input" required placeholder="e.g. iPhones">
+        </div>
+
+        <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 30px;">
+          <button type="button" class="btn-secondary" id="close-cat-modal-btn" style="padding: 10px 20px;">
+            <span class="lang-ar">إلغاء</span>
+            <span class="lang-en">Cancel</span>
+          </button>
+          <button type="submit" class="btn-primary" style="padding: 10px 20px;">
+            <span class="lang-ar">حفظ</span>
+            <span class="lang-en">Save</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/script.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>
