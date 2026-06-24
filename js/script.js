@@ -188,6 +188,11 @@ function initLocalStorageDb() {
 const STATIC_HOST_SUFFIXES = ['github.io', 'netlify.app'];
 const CACHE_PREFIX = 'greenapple:apiCache:';
 const DEFAULT_TTL = 1000 * 60 * 60 * 24; // 24 hours
+const MAX_CACHE_ENTRIES = 60; // keep cache bounded
+const MAX_BODY_LENGTH = 100 * 1024; // 100KB per cached response
+
+// Whitelist of API path prefixes safe to cache
+const CACHE_WHITELIST = ['/products', '/categories', '/offers', '/videos', '/stats'];
 
 function isStaticHost(hostname) {
   if (!hostname) return false;
@@ -199,15 +204,33 @@ function cacheKey(url, method = 'GET') {
   return `${CACHE_PREFIX}${method.toUpperCase()}::${url}`;
 }
 
-function saveToCache(url, method, bodyText, contentType) {
-  if (typeof localStorage === 'undefined') return;
+function enforceCacheSizeLimit() {
   try {
+    const keys = Object.keys(localStorage).filter(k => k.startsWith(CACHE_PREFIX));
+    if (keys.length <= MAX_CACHE_ENTRIES) return;
+    const entries = keys.map(k => {
+      try { return { k, v: JSON.parse(localStorage.getItem(k)) }; } catch(e){ return { k, v: null }; }
+    }).filter(e => e.v && e.v.ts).sort((a,b) => a.v.ts - b.v.ts);
+    const toRemove = entries.slice(0, keys.length - MAX_CACHE_ENTRIES);
+    toRemove.forEach(e => localStorage.removeItem(e.k));
+  } catch (e) {
+    // ignore quota or parse errors
+  }
+}
+
+function saveToCache(url, method, bodyText, contentType, etag) {
+  if (typeof localStorage === 'undefined') return;
+  if (!bodyText) return;
+  try {
+    if (bodyText.length > MAX_BODY_LENGTH) return; // avoid huge entries
     const payload = {
       ts: Date.now(),
       body: bodyText,
-      contentType: contentType || ''
+      contentType: contentType || '',
+      etag: etag || ''
     };
     localStorage.setItem(cacheKey(url, method), JSON.stringify(payload));
+    enforceCacheSizeLimit();
   } catch (e) {
     // ignore quota errors
   }
@@ -228,6 +251,15 @@ function readFromCache(url, method, maxAge = DEFAULT_TTL) {
     return null;
   }
 }
+
+function clearApiCache() {
+  try {
+    Object.keys(localStorage).filter(k => k.startsWith(CACHE_PREFIX)).forEach(k => localStorage.removeItem(k));
+  } catch (e) { /* ignore */ }
+}
+
+// Expose a developer helper
+if (typeof window !== 'undefined') window.clearApiCache = clearApiCache;
 
 async function parseResponseText(text, contentType) {
   if (!contentType) return text;
@@ -253,7 +285,11 @@ async function apiRequest(endpoint, method = "GET", data = null) {
     return handleLocalDb(endpoint, method, data);
   }
 
-  // Attempt network call
+  // Only cache GET/HEAD and only whitelisted paths
+  const isGetLike = (method === 'GET' || method === 'HEAD');
+  const pathSafeToCache = CACHE_WHITELIST.some(p => endpoint.startsWith(p));
+
+  // Attempt network call with conditional request if we have cached etag
   try {
     const options = {
       method,
@@ -261,13 +297,31 @@ async function apiRequest(endpoint, method = "GET", data = null) {
     };
     if (data) options.body = JSON.stringify(data);
 
+    // If we have a cached ETag for this resource, include If-None-Match for revalidation
+    if (isGetLike && pathSafeToCache) {
+      const cached = readFromCache(resolvedUrl, method);
+      if (cached && cached.etag) {
+        options.headers['If-None-Match'] = cached.etag;
+      }
+    }
+
     const res = await fetch(`${API_BASE}${endpoint}`, options);
+
+    // Handle 304 Not Modified -> return cached body if available
+    if (res.status === 304 && isGetLike && pathSafeToCache) {
+      const cached = readFromCache(resolvedUrl, method);
+      if (cached) {
+        return await parseResponseText(cached.body, cached.contentType);
+      }
+    }
+
     const text = await res.text();
     const contentType = res.headers.get('content-type') || '';
+    const etag = res.headers.get('etag') || '';
 
-    // Cache successful GET responses for static hosts (or all GETs if you prefer)
-    if ((method === 'GET' || method === 'HEAD') && res.ok && isStaticHost(hostname)) {
-      saveToCache(resolvedUrl, method, text, contentType);
+    // Cache successful GET responses for whitelisted paths and if content-type is JSON/text
+    if (isGetLike && res.ok && pathSafeToCache && (contentType.includes('application/json') || contentType.startsWith('text/'))) {
+      saveToCache(resolvedUrl, method, text, contentType, etag);
     }
 
     if (!res.ok) throw new Error('Server API Error');
@@ -276,8 +330,8 @@ async function apiRequest(endpoint, method = "GET", data = null) {
   } catch (error) {
     console.warn(`Server API failed on ${endpoint}, attempting fallback.`, error);
 
-    // If this app is served from a static host (Netlify/GitHub Pages), try localStorage fallback
-    if (staticHost) {
+    // If this app is served from a static host (Netlify/GitHub Pages) or the path is whitelisted, try localStorage fallback
+    if ((staticHost || pathSafeToCache) && isGetLike) {
       const cached = readFromCache(resolvedUrl, method);
       if (cached) {
         const parsed = await parseResponseText(cached.body, cached.contentType);
