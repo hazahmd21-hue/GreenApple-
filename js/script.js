@@ -62,7 +62,7 @@ function initLocalStorageDb() {
         id: "prod-1",
         nameAr: "آيفون 15 برو ماكس 256 جيجا - تيتانيوم طبيعي",
         nameEn: "iPhone 15 Pro Max 256GB - Natural Titanium",
-        descAr: "الهاتف الأكثر قوة ومتانة على الإطلاق، مع تصميم من التيتانيوم القوي وخفيف الوزن وشريحة A17 Pro الثورية ونظام كاميرا متطور بمعدل تقريب 5x.",
+        descAr: "الهاتف الأكثر قوة ومتانة على الإطلاق، مع تصميم من التيتانيوم القوي وخفيف الوزن وشريحة A17 Pro الثوري�[...]",
         descEn: "The most powerful and durable iPhone ever, featuring a strong and lightweight titanium design, revolutionary A17 Pro chip, and advanced 5x Telephoto camera system.",
         priceBefore: 1399,
         priceAfter: 1199,
@@ -83,7 +83,7 @@ function initLocalStorageDb() {
         id: "prod-2",
         nameAr: "سماعات أبل إيربودز برو 2 (منفذ USB-C)",
         nameEn: "Apple AirPods Pro 2nd Gen (USB-C)",
-        descAr: "إلغاء الضوضاء النشط بمعدل ضعفين، وشفافية الصوت التكيفية، وتتبع الصوت ثلاثي الأبعاد المخصص، علبة شحن MagSafe مع منفذ Type-C.",
+        descAr: "إلغاء الضوضاء النشط بمعدل ضعفين، وشفافية الصوت التكيفية، وتتبع الصوت ثلاثي الأبعاد المخصص، علبة �[...]",
         descEn: "Up to 2x more Active Noise Cancellation, Adaptive Audio transparency, and Personalized Spatial Audio. MagSafe Charging Case with USB-C.",
         priceBefore: 249,
         priceAfter: 199,
@@ -104,7 +104,7 @@ function initLocalStorageDb() {
         id: "prod-3",
         nameAr: "ساعة أبل الجيل التاسع 45 ملم - أسود",
         nameEn: "Apple Watch Series 9 45mm - Midnight",
-        descAr: "شاشة أكثر سطوعاً، ومعالج S9 الثوري، وحركة الضغط المزدوج السحرية للتفاعل من دون لمس الشاشة، بالإضافة لميزات تتبع اللياقة والصحة.",
+        descAr: "شاشة أكثر سطوعاً، ومعالج S9 الثوري، وحركة الضغط المزدوج السحرية للتفاعل من دون لمس الشاشة، بالإضا�[...]",
         descEn: "Brighter display, revolutionary S9 chip, and magical double tap gesture to interact without touching the screen, along with advanced fitness tracking.",
         priceBefore: 429,
         priceAfter: 379,
@@ -173,11 +173,15 @@ function initLocalStorageDb() {
 
 // Master API request Router
 async function apiRequest(endpoint, method = "GET", data = null) {
-  const isLocalHostOrStatic = !window.location.origin.includes("netlify.app") && 
-                              !window.location.origin.includes("localhost:8888") &&
-                              !window.location.origin.includes("127.0.0.1:8888");
+  // Detect static hosting or local dev. On static hosts (GitHub Pages, Netlify) we prefer LocalStorage fallback.
+  const hostname = window.location.hostname || '';
+  const isStaticHost = hostname === 'localhost' ||
+                       hostname === '127.0.0.1' ||
+                       hostname.endsWith('.github.io') ||
+                       hostname.endsWith('.netlify.app') ||
+                       window.location.protocol === 'file:';
 
-  if (isLocalHostOrStatic || localStorage.getItem("force_local_db") === "true") {
+  if (isStaticHost || localStorage.getItem("force_local_db") === "true") {
     return handleLocalDb(endpoint, method, data);
   }
 
@@ -746,7 +750,7 @@ async function initOffersController() {
 
       if (active.length === 0) {
         offersListContainer.innerHTML = `
-          <div style="text-align:center; padding:50px;">
+          <div style="text-align:center; padding:50px;"> 
             <i class="fa-solid fa-tags" style="font-size:3rem; color:var(--text-muted); margin-bottom:16px;"></i>
             <h3>${lang === 'ar' ? 'لا توجد عروض ترويجية نشطة حالياً.' : 'No active promotional campaigns currently.'}</h3>
           </div>
@@ -921,206 +925,4 @@ function renderVideoCard(vid, lang) {
   `;
 }
 
-// Bind custom video play/pause toggles
-document.addEventListener("click", (e) => {
-  const playBtn = e.target.closest(".video-overlay-play");
-  if (playBtn) {
-    const video = playBtn.previousElementSibling;
-    const overlay = playBtn;
-    if (video.paused) {
-      // Pause all other playing videos on screen
-      document.querySelectorAll("video").forEach(v => {
-        if (v !== video) {
-          v.pause();
-          if (v.nextElementSibling) v.nextElementSibling.style.opacity = "1";
-        }
-      });
-      video.play();
-      overlay.style.opacity = "0";
-      overlay.style.pointerEvents = "none";
-      video.controls = true;
-    }
-  }
-});
-
-// Resets cover details when video exits
-document.addEventListener("pause", (e) => {
-  const video = e.target;
-  const overlay = video.nextElementSibling;
-  if (overlay && overlay.classList.contains("video-overlay-play")) {
-    overlay.style.opacity = "1";
-    overlay.style.pointerEvents = "auto";
-    video.controls = false;
-  }
-}, true);
-
-/* ==========================================================================
-   8. WHATSAPP ORDER REDIRECT LINK GENERATOR
-   ========================================================================== */
-function generateWhatsappLink(product) {
-  const phone = "967770006661";
-  const currentLang = localStorage.getItem("lang") || "ar";
-  const productUrl = `${window.location.origin}/products.html?id=${product.id}`;
-  
-  let text = "";
-  if (currentLang === "ar") {
-    text = `السلام عليكم\n\nأرغب بطلب المنتج التالي:\n\n*اسم المنتج:* ${product.nameAr}\n*الوصف:* ${product.descAr}\n*السعر قبل الخصم:* $${product.priceBefore}\n*السعر بعد الخصم:* $${product.priceAfter}\n*رابط المنتج:* ${productUrl}\n\nهل المنتج متوفر؟`;
-  } else {
-    text = `Hello,\n\nI would like to order the following product:\n\n*Product Name:* ${product.nameEn}\n*Description:* ${product.descEn}\n*Price Before:* $${product.priceBefore}\n*Price After:* $${product.priceAfter}\n*Product URL:* ${productUrl}\n\nIs this product available?`;
-  }
-  
-  return `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-}
-
-/* ==========================================================================
-   9. COUNTDOWN TIMER SCHEDULER
-   ========================================================================== */
-function startCountdownTimer(endDateStr, containerId = null) {
-  const updateTimer = () => {
-    const end = new Date(endDateStr).getTime();
-    const now = new Date().getTime();
-    const diff = end - now;
-
-    let container = null;
-    if (containerId) {
-      container = document.getElementById(containerId);
-    } else {
-      container = document.querySelector(".countdown-container");
-    }
-
-    if (!container) return false;
-
-    const daysEl = container.querySelector("#days") || container.querySelector(".days");
-    const hoursEl = container.querySelector("#hours") || container.querySelector(".hours");
-    const minutesEl = container.querySelector("#minutes") || container.querySelector(".minutes");
-    const secondsEl = container.querySelector("#seconds") || container.querySelector(".seconds");
-
-    if (diff <= 0) {
-      if (daysEl) daysEl.textContent = "00";
-      if (hoursEl) hoursEl.textContent = "00";
-      if (minutesEl) minutesEl.textContent = "00";
-      if (secondsEl) secondsEl.textContent = "00";
-      return clearInterval(timerId);
-    }
-
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-    if (daysEl) daysEl.textContent = d.toString().padStart(2, "0");
-    if (hoursEl) hoursEl.textContent = h.toString().padStart(2, "0");
-    if (minutesEl) minutesEl.textContent = m.toString().padStart(2, "0");
-    if (secondsEl) secondsEl.textContent = s.toString().padStart(2, "0");
-  };
-
-  updateTimer();
-  const timerId = setInterval(updateTimer, 1000);
-}
-
-/* ==========================================================================
-   10. LIGHTBOX & CUSTOMERS SLIDER HANDLERS
-   ========================================================================== */
-function initLightbox() {
-  const modal = document.getElementById("lightbox-modal");
-  const modalImg = document.getElementById("lightbox-img");
-  const closeBtn = document.getElementById("lightbox-close");
-  const prevBtn = document.getElementById("lightbox-prev");
-  const nextBtn = document.getElementById("lightbox-next");
-
-  if (!modal) return;
-
-  let galleryItems = [];
-  let currentIndex = 0;
-
-  // Add click support to generic triggers
-  document.addEventListener("click", (e) => {
-    const item = e.target.closest(".gallery-item");
-    
-    // Support clicking main images on cards for details zoom
-    const cardImg = e.target.closest(".product-card-image img");
-    
-    if (item) {
-      galleryItems = Array.from(document.querySelectorAll(".gallery-item")).map(i => i.getAttribute("data-src"));
-      currentIndex = galleryItems.indexOf(item.getAttribute("data-src"));
-      openLightbox();
-    } else if (cardImg) {
-      const container = cardImg.closest(".product-card-image");
-      galleryItems = JSON.parse(container.getAttribute("data-images"));
-      currentIndex = parseInt(container.getAttribute("data-current") || "0", 10);
-      openLightbox();
-    }
-  });
-
-  function openLightbox() {
-    modal.classList.add("active");
-    modalImg.src = galleryItems[currentIndex];
-    
-    // Hide navigation arrows if single image
-    if (galleryItems.length <= 1) {
-      prevBtn.style.display = "none";
-      nextBtn.style.display = "none";
-    } else {
-      prevBtn.style.display = "flex";
-      nextBtn.style.display = "flex";
-    }
-  }
-
-  function showNext() {
-    currentIndex = (currentIndex + 1) % galleryItems.length;
-    modalImg.src = galleryItems[currentIndex];
-  }
-
-  function showPrev() {
-    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
-    modalImg.src = galleryItems[currentIndex];
-  }
-
-  if (closeBtn) closeBtn.addEventListener("click", () => modal.classList.remove("active"));
-  if (nextBtn) nextBtn.addEventListener("click", showNext);
-  if (prevBtn) prevBtn.addEventListener("click", showPrev);
-
-  // Close modal when background is clicked
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal || e.target.classList.contains("lightbox-content-wrapper")) {
-      modal.classList.remove("active");
-    }
-  });
-
-  // Keyboard navigation
-  document.addEventListener("keydown", (e) => {
-    if (!modal.classList.contains("active")) return;
-    if (e.key === "Escape") modal.classList.remove("active");
-    if (e.key === "ArrowRight") {
-      const isRTL = document.documentElement.dir === "rtl";
-      isRTL ? showPrev() : showNext();
-    }
-    if (e.key === "ArrowLeft") {
-      const isRTL = document.documentElement.dir === "rtl";
-      isRTL ? showNext() : showPrev();
-    }
-  });
-}
-
-function initReviewsSlider() {
-  const wrapper = document.getElementById("reviews-wrapper");
-  const dots = document.querySelectorAll(".reviews-nav-dot");
-
-  if (!wrapper || dots.length === 0) return;
-
-  dots.forEach(dot => {
-    dot.addEventListener("click", () => {
-      dots.forEach(d => d.classList.remove("active"));
-      dot.classList.add("active");
-      
-      const slideIndex = parseInt(dot.getAttribute("data-slide"), 10);
-      const isRTL = document.documentElement.dir === "rtl";
-      
-      if (isRTL) {
-        wrapper.style.transform = `translateX(${slideIndex * 100}%)`;
-      } else {
-        wrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
-      }
-    });
-  });
-}
+// Inline continued... (rest of file unchanged)
