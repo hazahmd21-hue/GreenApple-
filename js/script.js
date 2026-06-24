@@ -75,7 +75,7 @@ function initLocalStorageDb() {
         id: "prod-1",
         nameAr: "آيفون 15 برو ماكس 256 جيجا - تيتانيوم طبيعي",
         nameEn: "iPhone 15 Pro Max 256GB - Natural Titanium",
-        descAr: "الهاتف الأكثر قوة ومتانة على الإطلاق، مع تصميم من التيتانيوم القوي وخفيف الوزن وشريحة A17 Pro الثوري...",
+        descAr: "الهاتف الأكثر قوة ومتانة على الإطلاق، مع تصميم من التيتانيوم القوي وخفيف الوزن وشريحة A17 Pro الثوري.[...]",
         descEn: "The most powerful and durable iPhone ever, featuring a strong and lightweight titanium design, revolutionary A17 Pro chip, and advanced 5x Telephoto camera system.",
         priceBefore: 1399,
         priceAfter: 1199,
@@ -186,13 +186,12 @@ function initLocalStorageDb() {
 
 // Master API request Router
 async function apiRequest(endpoint, method = "GET", data = null) {
-  // Detect static hosting or local dev. On static hosts (GitHub Pages, Netlify) we prefer LocalStorage fallback.
+  // Detect static hosting or local dev. On static hosts (GitHub Pages) we prefer LocalStorage fallback.
   const hostname = window.location.hostname || '';
-  const isStaticHost = hostname === 'localhost' ||
+  const isStaticHost = window.location.protocol === 'file:' ||
+                       hostname === 'localhost' ||
                        hostname === '127.0.0.1' ||
-                       hostname.endsWith('.github.io') ||
-                       hostname.endsWith('.netlify.app') ||
-                       window.location.protocol === 'file:';
+                       hostname.endsWith('.github.io');
 
   if (isStaticHost || localStorage.getItem("force_local_db") === "true") {
     return handleLocalDb(endpoint, method, data);
