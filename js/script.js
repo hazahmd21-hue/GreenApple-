@@ -628,7 +628,7 @@ function initScrollEffects() {
   }
 }
 
-function initHomeController() {
+async function initHomeController() {
   const categoriesContainer = document.getElementById("categories-container");
   const featuredContainer = document.getElementById("featured-products-container");
   const offersContainer = document.getElementById("index-offers-container");
