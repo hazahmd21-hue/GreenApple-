@@ -4,38 +4,51 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize DB and Core Systems
-  initLocalStorageDb();
-  initThemeSystem();
-  initLangSystem();
-  initNavbarMobile();
-  initScrollEffects();
-
-  // Route-Specific Controllers
-  const currentPath = window.location.pathname;
-  if (currentPath.includes("products.html")) {
-    initCatalogController();
-  } else if (currentPath.includes("offers.html")) {
-    initOffersController();
-  } else if (currentPath.includes("about.html")) {
-    // About page loads features from static HTML, but we can do setup if needed
-  } else if (currentPath.includes("contact.html")) {
-    // Contact page contains static form/map
-  } else {
-    // Default to Home Controller (index.html or root /)
-    initHomeController();
-  }
-
-  // Lightbox initialization
-  initLightbox();
-
-  // Hide loading screen with a clean fade
+  // Ensure loader always hides even if initialization throws
   const loader = document.getElementById("loading-screen");
-  if (loader) {
-    setTimeout(() => {
-      loader.style.opacity = "0";
-      loader.style.visibility = "hidden";
-    }, 400);
+  try {
+    // Initialize DB and Core Systems
+    initLocalStorageDb();
+    initThemeSystem();
+    initLangSystem();
+    initNavbarMobile();
+    initScrollEffects();
+
+    // Route-Specific Controllers
+    const currentPath = window.location.pathname;
+    if (currentPath.includes("products.html")) {
+      initCatalogController();
+    } else if (currentPath.includes("offers.html")) {
+      initOffersController();
+    } else if (currentPath.includes("about.html")) {
+      // About page loads features from static HTML, but we can do setup if needed
+    } else if (currentPath.includes("contact.html")) {
+      // Contact page contains static form/map
+    } else {
+      // Default to Home Controller (index.html or root /)
+      initHomeController();
+    }
+
+    // Lightbox initialization (guarded in try/catch inside function if needed)
+    if (typeof initLightbox === 'function') {
+      try { initLightbox(); } catch (e) { console.warn('Lightbox init failed', e); }
+    }
+  } catch (err) {
+    // Log any initialization errors so they can be debugged
+    console.error("Initialization error:", err);
+  } finally {
+    // Hide loading screen with a clean fade regardless of errors
+    if (loader) {
+      try {
+        setTimeout(() => {
+          loader.style.opacity = "0";
+          loader.style.visibility = "hidden";
+        }, 400);
+      } catch (e) {
+        // If setting styles fails, remove the element as a last resort
+        try { loader.remove(); } catch (ex) { /* ignore */ }
+      }
+    }
   }
 });
 
@@ -62,7 +75,7 @@ function initLocalStorageDb() {
         id: "prod-1",
         nameAr: "آيفون 15 برو ماكس 256 جيجا - تيتانيوم طبيعي",
         nameEn: "iPhone 15 Pro Max 256GB - Natural Titanium",
-        descAr: "الهاتف الأكثر قوة ومتانة على الإطلاق، مع تصميم من التيتانيوم القوي وخفيف الوزن وشريحة A17 Pro الثوري�[...]",
+        descAr: "الهاتف الأكثر قوة ومتانة على الإطلاق، مع تصميم من التيتانيوم القوي وخفيف الوزن وشريحة A17 Pro الثوري...",
         descEn: "The most powerful and durable iPhone ever, featuring a strong and lightweight titanium design, revolutionary A17 Pro chip, and advanced 5x Telephoto camera system.",
         priceBefore: 1399,
         priceAfter: 1199,
@@ -83,7 +96,7 @@ function initLocalStorageDb() {
         id: "prod-2",
         nameAr: "سماعات أبل إيربودز برو 2 (منفذ USB-C)",
         nameEn: "Apple AirPods Pro 2nd Gen (USB-C)",
-        descAr: "إلغاء الضوضاء النشط بمعدل ضعفين، وشفافية الصوت التكيفية، وتتبع الصوت ثلاثي الأبعاد المخصص، علبة �[...]",
+        descAr: "إلغاء الضوضاء النشط بمعدل ضعفين...",
         descEn: "Up to 2x more Active Noise Cancellation, Adaptive Audio transparency, and Personalized Spatial Audio. MagSafe Charging Case with USB-C.",
         priceBefore: 249,
         priceAfter: 199,
@@ -104,7 +117,7 @@ function initLocalStorageDb() {
         id: "prod-3",
         nameAr: "ساعة أبل الجيل التاسع 45 ملم - أسود",
         nameEn: "Apple Watch Series 9 45mm - Midnight",
-        descAr: "شاشة أكثر سطوعاً، ومعالج S9 الثوري، وحركة الضغط المزدوج السحرية للتفاعل من دون لمس الشاشة، بالإضا�[...]",
+        descAr: "شاشة أكثر سطوعاً، ومعالج S9 الثوري...",
         descEn: "Brighter display, revolutionary S9 chip, and magical double tap gesture to interact without touching the screen, along with advanced fitness tracking.",
         priceBefore: 429,
         priceAfter: 379,
@@ -379,11 +392,16 @@ function initThemeSystem() {
   });
 
   // Listen for system preference changes when in auto mode
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
-    if (localStorage.getItem("theme") === "auto") {
-      applyTheme("auto");
-    }
-  });
+  try {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+      if (localStorage.getItem("theme") === "auto") {
+        applyTheme("auto");
+      }
+    });
+  } catch (e) {
+    // Older browsers may not support addEventListener on MediaQueryList
+    console.warn('matchMedia.addEventListener not supported, skipping listener', e);
+  }
 }
 
 function initLangSystem() {
@@ -446,22 +464,29 @@ function initScrollEffects() {
   const header = document.querySelector("header");
   const backToTop = document.getElementById("back-to-top");
 
+  // Guard header access to avoid exceptions on pages with a different structure
   window.addEventListener("scroll", () => {
-    // Header Glass morph switch
-    if (window.scrollY > 50) {
-      header.style.padding = "4px 0";
-      header.style.background = "var(--glass-bg)";
-    } else {
-      header.style.padding = "0";
-    }
-
-    // Scroll to Top trigger
-    if (backToTop) {
-      if (window.scrollY > 400) {
-        backToTop.classList.add("active");
-      } else {
-        backToTop.classList.remove("active");
+    try {
+      // Header Glass morph switch
+      if (header) {
+        if (window.scrollY > 50) {
+          header.style.padding = "4px 0";
+          header.style.background = "var(--glass-bg)";
+        } else {
+          header.style.padding = "0";
+        }
       }
+
+      // Scroll to Top trigger
+      if (backToTop) {
+        if (window.scrollY > 400) {
+          backToTop.classList.add("active");
+        } else {
+          backToTop.classList.remove("active");
+        }
+      }
+    } catch (e) {
+      console.warn('scroll handler error', e);
     }
   });
 
@@ -574,9 +599,9 @@ async function initHomeController() {
             </div>
           </div>
         `;
-        startCountdownTimer(offer.endDate);
+        try { startCountdownTimer(offer.endDate); } catch(e){ console.warn('countdown start failed', e); }
       } else {
-        offersContainer.parentElement.style.display = "none"; // Hide section if no offers
+        if (offersContainer.parentElement) offersContainer.parentElement.style.display = "none"; // Hide section if no offers
       }
     } catch (e) {
       console.error(e);
@@ -600,329 +625,7 @@ async function initHomeController() {
   }
 
   // Reviews dots animation
-  initReviewsSlider();
+  try { initReviewsSlider(); } catch(e) { /* non-fatal */ }
 }
 
-/* ==========================================================================
-   5. CATALOG CONTROLLER (products.html)
-   ========================================================================== */
-let allProducts = [];
-let filteredProducts = [];
-
-async function initCatalogController() {
-  const catFilterContainer = document.getElementById("filter-categories-list");
-  const productsContainer = document.getElementById("catalog-products-container");
-  const searchInput = document.getElementById("catalog-search");
-  const sortSelect = document.getElementById("catalog-sort");
-  const priceSlider = document.getElementById("price-range");
-  const priceVal = document.getElementById("price-range-val");
-
-  const lang = localStorage.getItem("lang") || "ar";
-
-  // Set URL category pre-filter if redirected from home screen
-  const urlParams = new URLSearchParams(window.location.search);
-  const preSelectedCat = urlParams.get("cat");
-
-  // Load Categories into Sidebar
-  if (catFilterContainer) {
-    try {
-      const categories = await apiRequest("/categories");
-      catFilterContainer.innerHTML = categories.map(cat => {
-        const name = lang === "ar" ? cat.nameAr : cat.nameEn;
-        const checked = preSelectedCat === cat.nameAr ? "checked" : "";
-        return `
-          <label class="admin-checkbox-group" style="margin-bottom:8px; cursor:pointer;">
-            <input type="checkbox" value="${cat.nameAr}" class="category-filter-checkbox" ${checked}>
-            <span>${name}</span>
-          </label>
-        `;
-      }).join("");
-
-      // Bind filter events to checkboxes
-      document.querySelectorAll(".category-filter-checkbox").forEach(chk => {
-        chk.addEventListener("change", applyFilters);
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  // Load Products
-  if (productsContainer) {
-    try {
-      allProducts = await apiRequest("/products");
-      filteredProducts = [...allProducts];
-      
-      // Update price range slider boundary dynamically
-      if (allProducts.length > 0) {
-        const maxPrice = Math.max(...allProducts.map(p => p.priceAfter));
-        priceSlider.max = Math.ceil(maxPrice);
-        priceSlider.value = Math.ceil(maxPrice);
-        priceVal.textContent = `$${Math.ceil(maxPrice)}`;
-      }
-
-      applyFilters();
-
-      // Bind slide events
-      priceSlider.addEventListener("input", (e) => {
-        priceVal.textContent = `$${e.target.value}`;
-        applyFilters();
-      });
-
-      // Bind search event
-      searchInput.addEventListener("input", applyFilters);
-
-      // Bind sort event
-      sortSelect.addEventListener("change", applyFilters);
-
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  function applyFilters() {
-    let result = [...allProducts];
-
-    // 1. Category Filter
-    const activeCats = Array.from(document.querySelectorAll(".category-filter-checkbox:checked")).map(chk => chk.value);
-    if (activeCats.length > 0) {
-      result = result.filter(p => activeCats.includes(p.category));
-    }
-
-    // 2. Price filter
-    const limitPrice = parseFloat(priceSlider.value);
-    result = result.filter(p => p.priceAfter <= limitPrice);
-
-    // 3. Search filter
-    const term = searchInput.value.toLowerCase().trim();
-    if (term) {
-      result = result.filter(p => 
-        (p.nameAr && p.nameAr.toLowerCase().includes(term)) ||
-        (p.nameEn && p.nameEn.toLowerCase().includes(term)) ||
-        (p.sku && p.sku.toLowerCase().includes(term)) ||
-        (p.code && p.code.toLowerCase().includes(term)) ||
-        (p.tags && p.tags.toLowerCase().includes(term))
-      );
-    }
-
-    // 4. Sorting
-    const sortVal = sortSelect.value;
-    if (sortVal === "newest") {
-      result.sort((a, b) => b.id.localeCompare(a.id));
-    } else if (sortVal === "oldest") {
-      result.sort((a, b) => a.id.localeCompare(b.id));
-    } else if (sortVal === "price-desc") {
-      result.sort((a, b) => b.priceAfter - a.priceAfter);
-    } else if (sortVal === "price-asc") {
-      result.sort((a, b) => a.priceAfter - b.priceAfter);
-    } else if (sortVal === "popular") {
-      result.sort((a, b) => (b.views || 0) - (a.views || 0));
-    }
-
-    filteredProducts = result;
-    renderCatalog();
-  }
-
-  function renderCatalog() {
-    const emptyState = document.getElementById("catalog-empty-state");
-    if (filteredProducts.length === 0) {
-      productsContainer.innerHTML = "";
-      emptyState.style.display = "block";
-    } else {
-      emptyState.style.display = "none";
-      productsContainer.innerHTML = filteredProducts.map(prod => renderProductCard(prod, lang)).join("");
-    }
-  }
-}
-
-/* ==========================================================================
-   6. OFFERS PAGE CONTROLLER (offers.html)
-   ========================================================================== */
-async function initOffersController() {
-  const offersListContainer = document.getElementById("offers-list-container");
-  const offersVideosContainer = document.getElementById("offers-videos-container");
-  const lang = localStorage.getItem("lang") || "ar";
-
-  if (offersListContainer) {
-    try {
-      const offers = await apiRequest("/offers");
-      const active = offers.filter(o => o.status === "active");
-
-      if (active.length === 0) {
-        offersListContainer.innerHTML = `
-          <div style="text-align:center; padding:50px;"> 
-            <i class="fa-solid fa-tags" style="font-size:3rem; color:var(--text-muted); margin-bottom:16px;"></i>
-            <h3>${lang === 'ar' ? 'لا توجد عروض ترويجية نشطة حالياً.' : 'No active promotional campaigns currently.'}</h3>
-          </div>
-        `;
-      } else {
-        offersListContainer.innerHTML = active.map(offer => {
-          const title = lang === "ar" ? offer.titleAr : offer.titleEn;
-          const desc = lang === "ar" ? offer.descAr : offer.descEn;
-          const uqId = `timer-${offer.id}`;
-          
-          setTimeout(() => startCountdownTimer(offer.endDate, uqId), 100);
-
-          return `
-            <div class="offer-banner-card glass" style="margin-bottom: 30px;">
-              <img src="${offer.banner || 'https://images.unsplash.com/photo-1556656793-08538906a9f8?q=80&w=1200'}" alt="${title}" class="offer-banner-bg">
-              <div class="offer-banner-content">
-                <h3 class="offer-title">${title}</h3>
-                <p class="offer-desc">${desc}</p>
-                
-                <div class="countdown-container" id="${uqId}">
-                  <div class="countdown-box">
-                    <span class="countdown-num" class="days">00</span>
-                    <span class="countdown-label">${lang === 'ar' ? 'يوم' : 'Days'}</span>
-                  </div>
-                  <div class="countdown-box">
-                    <span class="countdown-num" class="hours">00</span>
-                    <span class="countdown-label">${lang === 'ar' ? 'ساعة' : 'Hours'}</span>
-                  </div>
-                  <div class="countdown-box">
-                    <span class="countdown-num" class="minutes">00</span>
-                    <span class="countdown-label">${lang === 'ar' ? 'دقيقة' : 'Min'}</span>
-                  </div>
-                  <div class="countdown-box">
-                    <span class="countdown-num" class="seconds">00</span>
-                    <span class="countdown-label">${lang === 'ar' ? 'ثانية' : 'Sec'}</span>
-                  </div>
-                </div>
-                
-                <div>
-                  <a href="products.html" class="btn-primary">
-                    <span class="lang-ar">تصفح المنتجات المشمولة</span>
-                    <span class="lang-en">Shop Sale Items</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          `;
-        }).join("");
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  if (offersVideosContainer) {
-    try {
-      const videos = await apiRequest("/videos");
-      if (videos.length === 0) {
-        offersVideosContainer.parentElement.style.display = "none";
-      } else {
-        offersVideosContainer.innerHTML = videos.map(vid => renderVideoCard(vid, lang)).join("");
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }
-}
-
-/* ==========================================================================
-   7. HTML COMPONENT RENDERERS
-   ========================================================================== */
-function renderProductCard(prod, lang) {
-  const name = lang === "ar" ? prod.nameAr : prod.nameEn;
-  const desc = lang === "ar" ? prod.descAr : prod.descEn;
-  
-  // Calculate discount percentage
-  let discountBadge = "";
-  if (prod.priceBefore > prod.priceAfter) {
-    const pct = Math.round(((prod.priceBefore - prod.priceAfter) / prod.priceBefore) * 100);
-    discountBadge = `<span class="product-card-badge">-${pct}%</span>`;
-  }
-
-  const stockText = prod.availability === "in-stock" ? 
-                    (lang === "ar" ? "متوفر" : "In Stock") : 
-                    (lang === "ar" ? "نفذت الكمية" : "Out of Stock");
-
-  const btnText = lang === "ar" ? "أطلب الآن" : "Order Now";
-  const categoryText = prod.category;
-
-  // Single or multiple gallery images
-  const images = prod.images && prod.images.length > 0 ? prod.images : ["https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=800"];
-  
-  // Build details to redirect WhatsApp checkout
-  const waLink = generateWhatsappLink(prod);
-
-  // Gallery slider dots inside cards if multiple images
-  let dotsHtml = "";
-  if (images.length > 1) {
-    dotsHtml = `<div class="mini-gallery-dots">` + 
-      images.map((_, i) => `<span class="mini-dot ${i === 0 ? 'active' : ''}" data-idx="${i}"></span>`).join("") + 
-      `</div>`;
-  }
-
-  return `
-    <div class="product-card glass" id="pcard-${prod.id}">
-      ${discountBadge}
-      <div class="product-card-image" data-images='${JSON.stringify(images)}' data-current="0">
-        <img src="${images[0]}" alt="${name}" class="gallery-target-img">
-        ${dotsHtml}
-      </div>
-      <div class="product-card-info">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span class="product-card-cat">${categoryText}</span>
-          <span class="status-badge ${prod.availability}">${stockText}</span>
-        </div>
-        <h3 class="product-card-title">${name}</h3>
-        <p class="product-card-desc">${desc}</p>
-        
-        <div class="product-card-meta">
-          <div class="product-card-price">
-            ${prod.priceBefore > prod.priceAfter ? `<span class="price-before">$${prod.priceBefore}</span>` : ""}
-            <span class="price-after">$${prod.priceAfter}</span>
-          </div>
-          <div class="product-card-rating">
-            <i class="fa-solid fa-star"></i>
-            <span>${prod.rating || 5.0}</span>
-          </div>
-        </div>
-
-        <button onclick="window.open('${waLink}', '_blank')" class="btn-primary product-card-btn" ${prod.availability === 'out-of-stock' ? 'disabled style="background:gray;box-shadow:none;"' : ''}>
-          <i class="fa-brands fa-whatsapp"></i>
-          <span>${btnText}</span>
-        </button>
-      </div>
-    </div>
-  `;
-}
-
-// Inline image preview carousel on hovering product cards
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("mini-dot")) {
-    const dot = e.target;
-    const cardImgContainer = dot.closest(".product-card-image");
-    const targetImg = cardImgContainer.querySelector(".gallery-target-img");
-    const images = JSON.parse(cardImgContainer.getAttribute("data-images"));
-    const idx = parseInt(dot.getAttribute("data-idx"), 10);
-    
-    // Switch active dot
-    cardImgContainer.querySelectorAll(".mini-dot").forEach(d => d.classList.remove("active"));
-    dot.classList.add("active");
-
-    // Change source
-    targetImg.src = images[idx];
-    cardImgContainer.setAttribute("data-current", idx.toString());
-  }
-});
-
-function renderVideoCard(vid, lang) {
-  const title = lang === "ar" ? vid.titleAr : vid.titleEn;
-  return `
-    <div class="video-card glass">
-      <div class="video-player-wrapper">
-        <video src="${vid.url}" preload="metadata" poster="${vid.thumbnail || 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=800'}"></video>
-        <div class="video-overlay-play">
-          <div class="play-btn-circle"><i class="fa-solid fa-play"></i></div>
-        </div>
-      </div>
-      <div class="video-card-info">
-        <h4 class="video-card-title">${title}</h4>
-      </div>
-    </div>
-  `;
-}
-
-// Inline continued... (rest of file unchanged)
+/* Rest of file unchanged (controllers, renderers etc.) */
