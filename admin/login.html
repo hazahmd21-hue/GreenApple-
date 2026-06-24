@@ -149,6 +149,29 @@
       </div>
     </div>
 
+    <!-- Fallback: hide loader after 5s if script.js fails or initialization hangs -->
+    <script>
+      (function(){
+        setTimeout(function(){
+          try {
+            var loader = document.getElementById('loading-screen');
+            if (!loader) return;
+            // If loader still visible, hide and remove it
+            var op = window.getComputedStyle(loader).opacity;
+            var vis = window.getComputedStyle(loader).visibility;
+            if (op !== '0' && vis !== 'hidden') {
+              loader.style.transition = 'opacity 0.3s ease, visibility 0.3s ease';
+              loader.style.opacity = '0';
+              loader.style.visibility = 'hidden';
+              setTimeout(function(){ try{ loader.parentNode && loader.parentNode.removeChild(loader); }catch(e){} }, 350);
+              console.info('Fallback: loading-screen hidden');
+            }
+          } catch(e) { try{ var l = document.getElementById('loading-screen'); l && l.parentNode && l.parentNode.removeChild(l);}catch(e){}
+          }
+        }, 5000);
+      })();
+    </script>
+
     <script src="../js/script.js"></script>
     <script src="../js/admin.js"></script>
   </body>
