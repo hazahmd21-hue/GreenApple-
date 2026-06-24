@@ -184,30 +184,108 @@ function initLocalStorageDb() {
   }
 }
 
+// Helper: static host detection and localStorage cache for GET responses
+const STATIC_HOST_SUFFIXES = ['github.io', 'netlify.app'];
+const CACHE_PREFIX = 'greenapple:apiCache:';
+const DEFAULT_TTL = 1000 * 60 * 60 * 24; // 24 hours
+
+function isStaticHost(hostname) {
+  if (!hostname) return false;
+  const h = hostname.split(':')[0].toLowerCase();
+  return STATIC_HOST_SUFFIXES.some(suffix => h === suffix || h.endsWith('.' + suffix));
+}
+
+function cacheKey(url, method = 'GET') {
+  return `${CACHE_PREFIX}${method.toUpperCase()}::${url}`;
+}
+
+function saveToCache(url, method, bodyText, contentType) {
+  if (typeof localStorage === 'undefined') return;
+  try {
+    const payload = {
+      ts: Date.now(),
+      body: bodyText,
+      contentType: contentType || ''
+    };
+    localStorage.setItem(cacheKey(url, method), JSON.stringify(payload));
+  } catch (e) {
+    // ignore quota errors
+  }
+}
+
+function readFromCache(url, method, maxAge = DEFAULT_TTL) {
+  if (typeof localStorage === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(cacheKey(url, method));
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed.ts && (Date.now() - parsed.ts) > maxAge) {
+      localStorage.removeItem(cacheKey(url, method));
+      return null;
+    }
+    return parsed;
+  } catch (e) {
+    return null;
+  }
+}
+
+async function parseResponseText(text, contentType) {
+  if (!contentType) return text;
+  if (contentType.includes('application/json')) {
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      return text;
+    }
+  }
+  return text;
+}
+
 // Master API request Router
 async function apiRequest(endpoint, method = "GET", data = null) {
-  // Detect static hosting or local dev. On static hosts (GitHub Pages) we prefer LocalStorage fallback.
+  // Determine resolved URL (absolute) when possible
+  const resolvedUrl = (/^https?:\/\//i.test(endpoint)) ? endpoint : (window.location.origin + API_BASE + endpoint);
   const hostname = window.location.hostname || '';
-  const isStaticHost = window.location.protocol === 'file:' ||
-                       hostname === 'localhost' ||
-                       hostname === '127.0.0.1' ||
-                       hostname.endsWith('.github.io');
+  const staticHost = isStaticHost(hostname);
 
-  if (isStaticHost || localStorage.getItem("force_local_db") === "true") {
+  // If developer forced local DB, always use local
+  if (localStorage.getItem("force_local_db") === "true") {
     return handleLocalDb(endpoint, method, data);
   }
 
+  // Attempt network call
   try {
     const options = {
       method,
       headers: { "Content-Type": "application/json" }
     };
     if (data) options.body = JSON.stringify(data);
+
     const res = await fetch(`${API_BASE}${endpoint}`, options);
-    if (!res.ok) throw new Error("Server API Error");
-    return await res.json();
+    const text = await res.text();
+    const contentType = res.headers.get('content-type') || '';
+
+    // Cache successful GET responses for static hosts (or all GETs if you prefer)
+    if ((method === 'GET' || method === 'HEAD') && res.ok && isStaticHost(hostname)) {
+      saveToCache(resolvedUrl, method, text, contentType);
+    }
+
+    if (!res.ok) throw new Error('Server API Error');
+
+    return await parseResponseText(text, contentType);
   } catch (error) {
-    console.warn(`Server API failed on ${endpoint}, routing to LocalStorage fallback`, error);
+    console.warn(`Server API failed on ${endpoint}, attempting fallback.`, error);
+
+    // If this app is served from a static host (Netlify/GitHub Pages), try localStorage fallback
+    if (staticHost) {
+      const cached = readFromCache(resolvedUrl, method);
+      if (cached) {
+        const parsed = await parseResponseText(cached.body, cached.contentType);
+        return parsed;
+      }
+    }
+
+    // As a last resort, enable force_local_db and return the local handler
     localStorage.setItem("force_local_db", "true");
     return handleLocalDb(endpoint, method, data);
   }
@@ -496,10 +574,7 @@ function initScrollEffects() {
   }
 }
 
-/* ==========================================================================
-   4. HOME PAGE CONTROLLER (index.html)
-   ========================================================================== */
-async function initHomeController() {
+function initHomeController() {
   const categoriesContainer = document.getElementById("categories-container");
   const featuredContainer = document.getElementById("featured-products-container");
   const offersContainer = document.getElementById("index-offers-container");
