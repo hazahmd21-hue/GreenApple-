@@ -1,7 +1,15 @@
 /**
  * Green Apple - Premium Smartphone Store
  * Admin Control Panel Script
+ *
+ * Modified to use Netlify Functions for products CRUD:
+ * - GET  /.netlify/functions/get-products
+ * - POST /.netlify/functions/add-product
+ * - PUT  /.netlify/functions/update-product
+ * - DELETE /.netlify/functions/delete-product?id=...
  */
+
+let cachedProducts = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   // 1. Session Guard Checks
@@ -201,7 +209,7 @@ async function initCategoriesCRUD() {
 }
 
 /* ==========================================================================
-   5. PRODUCTS CRUD CONTROLLER
+   5. PRODUCTS CRUD CONTROLLER (modified to use Netlify Functions)
    ========================================================================== */
 async function initProductsCRUD() {
   const tableBody = document.getElementById("products-table-body");
@@ -222,6 +230,11 @@ async function initProductsCRUD() {
 
   let uploadedImages = [];
 
+  const authHeader = () => {
+    const token = localStorage.getItem("admin_token") || sessionStorage.getItem("admin_token");
+    return token ? { Authorization: `Bearer ${token}` } : {};
+  };
+
   const loadCategoriesDropdown = async () => {
     try {
       const categories = await apiRequest("/categories");
@@ -233,7 +246,34 @@ async function initProductsCRUD() {
 
   const loadProducts = async () => {
     try {
-      const products = await apiRequest("/products");
+      const res = await fetch('/.netlify/functions/get-products');
+      if (!res.ok) throw new Error('Failed to fetch products');
+      const rows = await res.json();
+
+      // Map DB rows to the admin product shape. We store the full product object inside `description` as JSON when saving.
+      const products = rows.map(r => {
+        let payload = {};
+        try { payload = r.description ? JSON.parse(r.description) : {}; } catch (e) { payload = {}; }
+        return {
+          id: r.id,
+          nameAr: payload.nameAr || payload.name || r.name || '',
+          nameEn: payload.nameEn || payload.name || r.name || '',
+          descAr: payload.descAr || payload.description || '',
+          descEn: payload.descEn || '',
+          priceBefore: payload.priceBefore || 0,
+          priceAfter: payload.priceAfter || r.price || 0,
+          category: payload.category || '',
+          availability: payload.availability || 'in-stock',
+          sku: payload.sku || '',
+          code: payload.code || '',
+          tags: payload.tags || '',
+          featured: !!payload.featured,
+          images: payload.images || (r.image_url ? [r.image_url] : [])
+        };
+      });
+
+      cachedProducts = products;
+
       tableBody.innerHTML = products.map(prod => {
         const cover = prod.images && prod.images.length > 0 ? prod.images[0] : "https://images.unsplash.com/photo-1695048133142-1a20484d2569?q=80&w=800";
         const isFeatured = prod.featured ? 
@@ -361,13 +401,31 @@ async function initProductsCRUD() {
     };
 
     try {
+      const headers = Object.assign({'Content-Type': 'application/json'}, authHeader());
+
       if (id) {
-        await apiRequest("/products", "PUT", { id, ...data });
+        // Update existing product via update-product function
+        await fetch('/.netlify/functions/update-product', {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify({ id, product: data })
+        });
       } else {
-        await apiRequest("/products", "POST", data);
+        // Create new product, store full product object as JSON in `description` column
+        await fetch('/.netlify/functions/add-product', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            name: data.nameEn || data.nameAr || "",
+            description: JSON.stringify(data),
+            price: data.priceAfter || 0,
+            image_url: data.images && data.images.length > 0 ? data.images[0] : null
+          })
+        });
       }
+
       modal.classList.remove("active");
-      loadProducts();
+      await loadProducts();
     } catch (err) {
       alert("Error saving product: " + err.message);
     }
@@ -376,8 +434,12 @@ async function initProductsCRUD() {
   // Global edit call
   window.editProduct = async (id) => {
     try {
-      const prod = await apiRequest(`/products/${id}`);
-      if (!prod) return;
+      // Find product from cached list
+      const prod = cachedProducts.find(p => String(p.id) === String(id));
+      if (!prod) {
+        alert('Product not found');
+        return;
+      }
 
       document.getElementById("prod-id").value = prod.id;
       document.getElementById("prod-name-ar").value = prod.nameAr;
@@ -410,8 +472,13 @@ async function initProductsCRUD() {
 
     if (confirm(confirmMsg)) {
       try {
-        await apiRequest(`/products/${id}`, "DELETE");
-        loadProducts();
+        const headers = authHeader();
+        const res = await fetch(`/.netlify/functions/delete-product?id=${encodeURIComponent(id)}`, {
+          method: 'DELETE',
+          headers
+        });
+        if (!res.ok) throw new Error('Delete failed');
+        await loadProducts();
       } catch (err) {
         alert("Error deleting product: " + err.message);
       }
