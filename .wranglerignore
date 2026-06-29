@@ -1,0 +1,14 @@
+# Ignore large folders and files from Wrangler deployments
+node_modules/
+.git/
+dist/
+build/
+public/
+.vscode/
+*.log
+.env
+.DS_Store
+package-lock.json
+npm-debug.log*
+
+# If you have other heavy assets, add them here
