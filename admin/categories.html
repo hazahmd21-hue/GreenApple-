@@ -240,6 +240,20 @@
       </div>
     </div>
 
+    <script>
+      // Hotfix: ensure loading-screen hidden after 2s to avoid locking UX when main script fails to run.
+      setTimeout(function() {
+        try {
+          var loader = document.getElementById('loading-screen');
+          if (loader) {
+            loader.style.transition = 'opacity 0.25s ease';
+            loader.style.opacity = '0';
+            loader.style.visibility = 'hidden';
+            setTimeout(function(){ try { loader.parentNode && loader.parentNode.removeChild(loader); } catch(e){} }, 300);
+          }
+        } catch(e) { console.warn('Loading hotfix failed', e); }
+      }, 2000);
+    </script>
     <script src="../js/script.js"></script>
     <script src="../js/admin.js"></script>
   </body>
