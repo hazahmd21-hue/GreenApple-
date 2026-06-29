@@ -8,9 +8,6 @@
     "start": "echo \"Use a static file server to serve this site locally.\""
   },
   "dependencies": {},
-  "devDependencies": {
-    "wrangler": "^4.86.0"
-  },
   "engines": {
     "node": ">=20.18.1"
   }
