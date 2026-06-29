@@ -2,13 +2,16 @@
   "name": "green-apple-ecommerce",
   "version": "1.0.0",
   "description": "Green Apple - Premium Smartphone E-Commerce and Admin Dashboard",
-  "engines": {
-    "node": ">=20.18.1"
-  },
   "scripts": {
     "dev": "netlify dev",
     "build": "echo \"No build step defined. This repository looks like a static site.\"",
     "start": "echo \"Use a static file server to serve this site locally.\""
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "wrangler": "^4.86.0"
+  },
+  "engines": {
+    "node": ">=20.18.1"
+  }
 }
