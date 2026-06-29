@@ -1,0 +1,6 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "green-apple",
+  "compatibility_flags": ["nodejs_compat"],
+  "type": "javascript"
+}
