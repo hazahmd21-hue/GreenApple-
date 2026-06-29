@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>منتجاتنا | جرين ابل - Green Apple</title>
-  <meta name="description" content="تصفح قائمة هواتف آيفون المتوفرة وأحدث الإكسسوارات والشواحن الأصلية من متجر جرين ابل. تصفية ذكية حسب السعر والقسم مع سهولة الطلب عبر الواتساب.">
+  <meta name="description" content="تصفح قائمة هواتف آيفون المتوفرة وأحدث الإكسسوارات والشواحن الأصلية من متجر جرين ابل. تص�[...]">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
   <script>
@@ -184,7 +184,7 @@
           <span class="lang-en">Green Apple</span>
         </div>
         <p class="footer-desc">
-          <span class="lang-ar">محل متخصص في بيع وشراء الآيفونات بجميع أنواعها وبيع الإكسسوارات والشواحن الأصلية والوكالة.</span>
+          <span class="lang-ar">محل متخصص في بيع وشراء الآيفونات بجميع أنواعها وبيع الإكسسوارات والشواحن الأصلية والوكا�[...]</span>
           <span class="lang-en">Professional store specialized in buying and selling iPhones, smart Apple devices, original accessories, and chargers.</span>
         </p>
         <div class="social-links">
@@ -253,6 +253,22 @@
       <i class="fa-brands fa-whatsapp"></i>
     </a>
   </div>
+
+  <script>
+    // Hotfix: ensure loading-screen hidden after 2s to avoid locking UX when main script fails to run.
+    setTimeout(function() {
+      try {
+        var loader = document.getElementById('loading-screen');
+        if (loader) {
+          loader.style.transition = 'opacity 0.25s ease';
+          loader.style.opacity = '0';
+          loader.style.visibility = 'hidden';
+          // remove after fade
+          setTimeout(function(){ try { loader.parentNode && loader.parentNode.removeChild(loader); } catch(e){} }, 300);
+        }
+      } catch(e) { console.warn('Loading hotfix failed', e); }
+    }, 2000);
+  </script>
 
   <script src="js/script.js"></script>
 </body>
