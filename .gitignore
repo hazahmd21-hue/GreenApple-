@@ -1,0 +1,19 @@
+# Ignore dependencies and local files
+node_modules/
+.env
+.DS_Store
+dist/
+build/
+.vscode/
+*.log
+package-lock.json
+npm-debug.log*
+/.cache
+/.idea
+
+# Optional: ignore local OS files
+Thumbs.db
+
+# Wrangler/Cloudflare
+/.wrangler
+
