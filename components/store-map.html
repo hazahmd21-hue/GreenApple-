@@ -1,0 +1,52 @@
+<!-- components/store-map.html -->
+<!-- Leaflet map component for GreenApple store location
+     Usage: include this file where you want the map. To set store coords,
+     add data-lat and data-lng attributes to the #store-map element, e.g.
+     <div id="store-map" data-lat="15.345678" data-lng="44.123456"></div>
+     If no attributes provided, defaults to 15.345678,44.123456 (update as needed).
+-->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  #store-map { height:420px; border-radius:14px; overflow:hidden; }
+  .leaflet-popup-content-wrapper { background: #0f1720; color: #e6eef2; border-radius:8px; }
+  .leaflet-popup-content a { color: #00C853; }
+</style>
+<div id="store-map" data-lat="15.345678" data-lng="44.123456"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  (function(){
+    const el = document.getElementById('store-map');
+    // read coords from data attributes so you can configure without editing this file
+    const lat = parseFloat(el.getAttribute('data-lat')) || 15.345678;
+    const lng = parseFloat(el.getAttribute('data-lng')) || 44.123456;
+
+    const map = L.map('store-map', { zoomControl: false }).setView([lat, lng], 16);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    const greenIcon = L.divIcon({
+      className: 'custom-marker',
+      html: '<svg width="34" height="34" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#00C853" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="#071217"/></svg>'
+    });
+
+    const marker = L.marker([lat, lng], { icon: greenIcon }).addTo(map);
+    marker.bindPopup('<strong>Green Apple</strong><br>الموقع: ضع العنوان هنا').openPopup();
+
+    // optional: small control to center map on marker
+    const centerControl = L.control({ position: 'bottomleft' });
+    centerControl.onAdd = function () {
+      const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+      div.style.background = '#0b1220';
+      div.style.color = '#e6eef2';
+      div.style.padding = '6px';
+      div.style.borderRadius = '6px';
+      div.style.cursor = 'pointer';
+      div.innerHTML = 'موقعنا';
+      div.onclick = () => map.setView([lat,lng], 16);
+      return div;
+    };
+    centerControl.addTo(map);
+  })();
+</script>
