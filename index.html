@@ -55,6 +55,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="styles/category-cards.css" />
 
     <!-- Material Symbols (Theme Icons) -->
     <link
@@ -320,7 +321,28 @@
           </p>
         </div>
         <div class="category-grid" id="categories-container">
-          <!-- Loaded dynamically from admin/storage -->
+          <div class="categories">
+            <div class="category-card">
+              <div class="icon"><img src="/assets/icons/phone.svg" alt="الهاتف" /></div>
+              <div class="title">الجوالات</div>
+            </div>
+            <div class="category-card">
+              <div class="icon"><img src="/assets/icons/headphones.svg" alt="سماعات" /></div>
+              <div class="title">السماعات</div>
+            </div>
+            <div class="category-card">
+              <div class="icon"><img src="/assets/icons/watch.svg" alt="ساعات" /></div>
+              <div class="title">الساعات الذكية</div>
+            </div>
+            <div class="category-card">
+              <div class="icon"><img src="/assets/icons/plug.svg" alt="إكسسوارات" /></div>
+              <div class="title">الإكسسوارات والشواحن</div>
+            </div>
+            <div class="category-card">
+              <div class="icon"><img src="/assets/icons/offer.svg" alt="عروض" /></div>
+              <div class="title">العروض الخاصة</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -764,12 +786,52 @@
           </div>
 
           <div class="map-container">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3846.568449557876!2d44.20579737590886!3d15.345091758410766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1603db79869[...]"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+            <!-- Embedded Leaflet map component -->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+            <style>
+              #store-map { height:420px; border-radius:14px; overflow:hidden; }
+              .leaflet-popup-content-wrapper { background: #0f1720; color: #e6eef2; border-radius:8px; }
+              .leaflet-popup-content a { color: #00C853; }
+            </style>
+            <div id="store-map" data-lat="15.345091758410766" data-lng="44.20579737590886"></div>
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+            <script>
+              (function(){
+                const el = document.getElementById('store-map');
+                // read coords from data attributes so you can configure without editing this file
+                const lat = parseFloat(el.getAttribute('data-lat')) || 15.345091758410766;
+                const lng = parseFloat(el.getAttribute('data-lng')) || 44.20579737590886;
+
+                const map = L.map('store-map', { zoomControl: false }).setView([lat, lng], 16);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  attribution: '&copy; OpenStreetMap contributors'
+                }).addTo(map);
+
+                const greenIcon = L.divIcon({
+                  className: 'custom-marker',
+                  html: '<svg width="34" height="34" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#00C853" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="#071217"/></svg>'
+                });
+
+                const marker = L.marker([lat, lng], { icon: greenIcon }).addTo(map);
+                marker.bindPopup('<strong>Green Apple</strong><br>العنوان: صنعاء - شارع القصر - أمام السفارة الصينية').openPopup();
+
+                // optional: small control to center map on marker
+                const centerControl = L.control({ position: 'bottomleft' });
+                centerControl.onAdd = function () {
+                  const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+                  div.style.background = '#0b1220';
+                  div.style.color = '#e6eef2';
+                  div.style.padding = '6px';
+                  div.style.borderRadius = '6px';
+                  div.style.cursor = 'pointer';
+                  div.innerHTML = 'موقعنا';
+                  div.onclick = () => map.setView([lat,lng], 16);
+                  return div;
+                };
+                centerControl.addTo(map);
+              })();
+            </script>
           </div>
         </div>
       </div>
